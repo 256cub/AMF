@@ -1,0 +1,45 @@
+{
+  "name": "AMF",
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Automatic Bot",
+  "homepage_url": "https://www.google.com/",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "browser_action": {
+    "default_icon": "icons/icon32.png",
+    "default_title": "AMF",
+    "default_popup": "popup/popup.html"
+  },
+  "permissions": [
+    "background",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "jquery.min.js",
+        "inject.js",
+        "networks/tiktok.js",
+        "networks/instagram.js",
+        "networks/twitter.js",
+        "networks/facebook.js",
+        "networks/youtube.js",
+        "networks/soundcloud.js",
+        "networks/reddit.js"
+      ]
+    }
+  ]
+}

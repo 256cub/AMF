@@ -1,2 +1,87 @@
-# AMF
-AMF BOT Automatic Bot Extension for AddMeFast
+# AMF BOT
+### Automatic Bot Extension for [AddMeFast.com](http://addmf.co/?BS9J0FO)
+
+---
+### Release Histories:
+ - 1.0.0
+   - 1st release
+
+---
+AddMeFast is a network that will help you grow your social presence, allow you to look and choose who you want to
+like/subscribe/follow/view and skip those who you are not interested in.
+you can get free points by liking/following/viewing/subscribing/listening the others
+pages/accounts/videos/profiles/music.
+
+The points you get will be used to increase likes/views/shares and others on your social media accounts such as
+Facebook, Twitter, Instagram, TikTok, YouTube and many more.
+---
+
+### TODO LIST
+
+### Network to add
+
+- CoinMarketCap
+    - [ ] Watchlist
+- Facebook
+    - [x] <strike>Page Likes/Followers</strike>
+    - [ ] Share
+    - [ ] Followers
+    - [x] <strike>Post Like</strike>
+    - [ ] Post Share
+- Reddit
+    - [x] <strike>Members</strike>
+    - [x] <strike>Upvotes</strike>
+- Telegram
+    - [ ] Channels
+- Instagram
+    - [x] <strike>Followers</strike>
+    - [x] <strike>Likes</strike>
+- TikTok
+    - [x] <strike>Video Likes</strike>
+    - [x] <strike>Followers</strike>
+- Twitter
+    - [x] <strike>Followers</strike>
+    - [ ] Tweets
+    - [ ] Retweets
+    - [x] <strike>Likes</strike>
+- YouTube
+    - [x] <strike>Subscribe</strike>
+    - [x] <strike>Likes</strike>
+    - [ ] Views
+- Twitch
+    - [ ] Followers
+- Website
+    - [ ] Hits
+- Pinterest
+    - [ ] Save
+    - [ ] Followers
+- Likee
+    - [ ] Followers/Fans
+- SoundCloud
+    - [x] <strike>Likes</strike>
+    - [x] <strike>Follow</strike>
+    - [ ] Plays
+- Vkontakte
+    - [ ] Groups
+    - [ ] Pages
+- OK.ru
+    - [ ] Group Join
+- Reverbnation
+    - [ ] Fans
+
+---
+## Buy Me a Coffee
+
+AMF Bot is and always will be open source, even if I don't get donations. That being said, I know there are amazing people who may still want to donate just to show their appreciation. 
+Thank you very much in advance!
+
+We accept donations through Ko-fi, Paypal, BTC or ETH. You can use the buttons below to donate through your method of choice.
+
+|   Donate With   |                           Address                           |
+|:---------------:|:-----------------------------------------------------------:|
+|      Ko-fi      |           [Click Here](https://ko-fi.com/amfbot)            |
+|     PayPal      |     [Click Here](https://paypal.me/InsureZeroArticles)     |
+|   BTC Address   |             3MsUYeUfmpwVS2QrnRbLpCjGaVn2WDD6sj              |
+|   ETH Address   |         0x10cd16ba338661d2FB683B2481f8F5000FEd5663          |
+
+
