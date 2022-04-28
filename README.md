@@ -7,6 +7,13 @@
    - 1st release
 
 ---
+### Instruction to install
+1. Download Repository and unzip it. 
+2. Open Google Chrome and login with Social Networks you want to use. 
+3. In Browser type <b>chrome://extensions</b>
+4. Activate <b>Developer mode</b>, click <b>Load unpacked</b> and select folder from point 1.
+5. Extension is installed and can be used, click on it and click checkbox for network you want to use.
+---
 AddMeFast is a network that will help you grow your social presence, allow you to look and choose who you want to
 like/subscribe/follow/view and skip those who you are not interested in.
 you can get free points by liking/following/viewing/subscribing/listening the others
