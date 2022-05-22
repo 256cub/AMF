@@ -25,7 +25,7 @@
 
 <body>
 
-<h4 class="bg-success m-2 p-2"><strong>AMF BOT v1.0.0</strong>
+<h4 class="bg-success m-2 p-2"><strong>AMF BOT v1.0.1</strong>
     <span>
         Automatic Bot Extension for
         <a href="http://addmf.co/?BS9J0FO"> AddMeFast.com </a>
@@ -41,8 +41,8 @@
             <div class="card-header">CoinMarketCap</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="watchlist" value="1" disabled>
-                    <label class="form-check-label" for="watchlist">Watchlist</label>
+                    <input class="form-check-input" type="checkbox" id="coinmarketcap-watch" value="1" checked>
+                    <label class="form-check-label" for="coinmarketcap-watch">Watchlist</label>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
             <div class="card-header">Telegram</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="todo1" value="1" disabled>
-                    <label class="form-check-label" for="todo1">Channel</label>
+                    <input class="form-check-input" type="checkbox" id="telegram-follow" value="1" disabled>
+                    <label class="form-check-label" for="telegram-follow">Channel</label>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="card-header">Twitch</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitch-follow" value="1" disabled>
+                    <input class="form-check-input" type="checkbox" id="twitch-follow" value="1" checked>
                     <label class="form-check-label" for="twitch-follow">Follow</label>
                 </div>
             </div>
@@ -71,8 +71,8 @@
             <div class="card-header">Website</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="website-hit" value="1" disabled>
-                    <label class="form-check-label" for="website-hit">Hits</label>
+                    <input class="form-check-input" type="checkbox" id="website-view" value="1" disabled>
+                    <label class="form-check-label" for="website-view">Hits</label>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="card-header">Likee</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="likee-follow" value="1" disabled>
+                    <input class="form-check-input" type="checkbox" id="likee-follow" value="1" checked>
                     <label class="form-check-label" for="likee-follow">Follow</label>
                 </div>
             </div>
@@ -95,8 +95,8 @@
             <div class="card-header">OK.ru</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="ok-group" value="1" disabled>
-                    <label class="form-check-label" for="ok-group">Group Join</label>
+                    <input class="form-check-input" type="checkbox" id="ok-follow" value="1" disabled>
+                    <label class="form-check-label" for="ok-follow">Group Join</label>
                 </div>
             </div>
         </div>
@@ -105,8 +105,8 @@
             <div class="card-header">Reverbnation</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="reverbnation-fan" value="1" disabled>
-                    <label class="form-check-label" for="reverbnation-fan">Fan</label>
+                    <input class="form-check-input" type="checkbox" id="reverbnation-follow" value="1" checked>
+                    <label class="form-check-label" for="reverbnation-follow">Fan</label>
                 </div>
             </div>
         </div>
@@ -193,7 +193,7 @@
             <div class="card-header">Facebook</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-page-like" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="facebook-page-like" value="1">
                     <label class="form-check-label" for="facebook-page-like">Page Like</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -205,7 +205,7 @@
                     <label class="form-check-label" for="facebook-follow">Follow</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-post-like" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="facebook-post-like" value="1">
                     <label class="form-check-label" for="facebook-post-like">Post Like</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -241,11 +241,11 @@
             <div class="card-header">YouTube</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="youtube-subscribe" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="youtube-subscribe" value="1">
                     <label class="form-check-label" for="youtube-subscribe">Subscribe</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="youtube-like" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="youtube-like" value="1">
                     <label class="form-check-label" for="youtube-like">Like</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -259,11 +259,11 @@
             <div class="card-header">SoundCloud</div>
             <div class="card-body">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="soundcloud-save" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="soundcloud-save" value="1">
                     <label class="form-check-label" for="soundcloud-save">Save</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="soundcloud-follow" value="1" checked>
+                    <input class="form-check-input" type="checkbox" id="soundcloud-follow" value="1">
                     <label class="form-check-label" for="soundcloud-follow">Follow</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -295,7 +295,7 @@
 
     <div class="m-2 p-1 text-center">
         <span> Latest Updates: </span>
-        <strong> 28 April 2022 </strong>
+        <strong> 22 May 2022 </strong>
     </div>
 
 </div>

@@ -38,7 +38,14 @@
         "networks/facebook.js",
         "networks/youtube.js",
         "networks/soundcloud.js",
-        "networks/reddit.js"
+        "networks/reddit.js",
+        "networks/coinmarketcap.js",
+        "networks/telegram.js",
+        "networks/twitch.js",
+        "networks/website.js",
+        "networks/likee.js",
+        "networks/ok.js",
+        "networks/reverbnation.js"
       ]
     }
   ]

@@ -3,8 +3,15 @@
 
 ---
 ### Release Histories:
- - 1.0.0
-   - 1st release
+- 1.0.1
+  - added new networks:
+    - CoinMarketCap Watch
+    - Twitch Follow
+    - Likee Follow
+    - Reverbnation Follow
+
+- 1.0.0
+  - 1st release
 
 ---
 ### Instruction to install

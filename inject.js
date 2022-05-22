@@ -16,6 +16,14 @@ const _ACTION_TYPE_SC_FOLLOW = 10;
 const _ACTION_TYPE_SC_LIKE = 11;
 const _ACTION_TYPE_REDDIT_FOLLOW = 12;
 const _ACTION_TYPE_REDDIT_LIKE = 13;
+const _ACTION_TYPE_COINMARKETCAT_WATCH = 14;
+const _ACTION_TYPE_TELEGRAM_FOLLOW = 15;
+const _ACTION_TYPE_TWITCH_FOLLOW = 16;
+const _ACTION_TYPE_WEBSITE_VIEW = 17;
+const _ACTION_TYPE_LIKEE_FOLLOW = 18;
+const _ACTION_TYPE_OK_FOLLOW = 19;
+const _ACTION_TYPE_REVERBNATION_FOLLOW = 20;
+
 
 const _TIKTOK_FOLLOW = "https://addmefast.com/free_points/tiktok_followers";
 const _TIKTOK_LIKE = "https://addmefast.com/free_points/tiktok_video_likes";
@@ -31,6 +39,13 @@ const _SC_FOLLOW = "https://addmefast.com/free_points/soundcloud_follow";
 const _SC_LIKE = "https://addmefast.com/free_points/soundcloud_likes";
 const _REDDIT_FOLLOW = "https://addmefast.com/free_points/reddit_members";
 const _REDDIT_LIKE = "https://addmefast.com/free_points/reddit_upvotes";
+const _COINMARKETCAP_WATCH = "https://addmefast.com/free_points/coinmarketcap_watchlist";
+const _TELEGRAM_FOLLOW = "https://addmefast.com/free_points/telegram_subscribers";
+const _TWITCH_FOLLOW = "https://addmefast.com/free_points/twitch_followers";
+const _WEBSITE_VIEW = "https://addmefast.com/websites";
+const _LIKEE_FOLLOW = "https://addmefast.com/free_points/likee_followers";
+const _OK_FOLLOW = "https://addmefast.com/free_points/ok_group_join";
+const _REVERBNATION_FOLLOW = "https://addmefast.com/free_points/reverbnation_fan";
 
 tick_count = 0;
 first = true;
@@ -60,7 +75,7 @@ function clog(s) {
     chrome.runtime.sendMessage({action: "log", log: s});
 }
 
-const _ENABLE_LIST = [true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+const _ENABLE_LIST = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
 function nextActionType() {
 
@@ -141,6 +156,34 @@ function nextActionType() {
             CurActionUrl = _REDDIT_LIKE;
             break;
 
+        case _ACTION_TYPE_COINMARKETCAT_WATCH :
+            CurActionUrl = _COINMARKETCAP_WATCH;
+            break;
+
+        case _ACTION_TYPE_TELEGRAM_FOLLOW :
+            CurActionUrl = _TELEGRAM_FOLLOW;
+            break;
+
+        case _ACTION_TYPE_TWITCH_FOLLOW :
+            CurActionUrl = _TWITCH_FOLLOW;
+            break;
+
+        case _ACTION_TYPE_WEBSITE_VIEW :
+            CurActionUrl = _WEBSITE_VIEW;
+            break;
+
+        case _ACTION_TYPE_LIKEE_FOLLOW :
+            CurActionUrl = _LIKEE_FOLLOW;
+            break;
+
+        case _ACTION_TYPE_OK_FOLLOW :
+            CurActionUrl = _OK_FOLLOW;
+            break;
+
+        case _ACTION_TYPE_REVERBNATION_FOLLOW :
+            CurActionUrl = _REVERBNATION_FOLLOW;
+            break;
+
         default :
             CurActionUrl = "";
     }
@@ -162,6 +205,13 @@ function urlToActionType(current_url) {
     if (current_url === _SC_LIKE) return _ACTION_TYPE_SC_LIKE;
     if (current_url === _REDDIT_FOLLOW) return _ACTION_TYPE_REDDIT_FOLLOW;
     if (current_url === _REDDIT_LIKE) return _ACTION_TYPE_REDDIT_LIKE;
+    if (current_url === _COINMARKETCAP_WATCH) return _ACTION_TYPE_COINMARKETCAT_WATCH;
+    if (current_url === _TELEGRAM_FOLLOW) return _ACTION_TYPE_TELEGRAM_FOLLOW;
+    if (current_url === _TWITCH_FOLLOW) return _ACTION_TYPE_TWITCH_FOLLOW;
+    if (current_url === _WEBSITE_VIEW) return _ACTION_TYPE_WEBSITE_VIEW;
+    if (current_url === _LIKEE_FOLLOW) return _ACTION_TYPE_LIKEE_FOLLOW;
+    if (current_url === _OK_FOLLOW) return _ACTION_TYPE_OK_FOLLOW;
+    if (current_url === _REVERBNATION_FOLLOW) return _ACTION_TYPE_REVERBNATION_FOLLOW;
 
     return -1;
 }
@@ -214,6 +264,13 @@ chrome.runtime.onMessage.addListener(
             _ENABLE_LIST[11] = request.sc_like;
             _ENABLE_LIST[12] = request.reddit_follow;
             _ENABLE_LIST[13] = request.reddit_like;
+            _ENABLE_LIST[14] = request.coinmarketcap_watch;
+            _ENABLE_LIST[15] = request.telegram_follow;
+            _ENABLE_LIST[16] = request.twitch_follow;
+            _ENABLE_LIST[17] = request.website_view;
+            _ENABLE_LIST[18] = request.likee_follow;
+            _ENABLE_LIST[19] = request.ok_follow;
+            _ENABLE_LIST[20] = request.reverbnation_follow;
 
             if (config.enable) {
                 window.location.href = "https://www.addmefast.com";
@@ -302,6 +359,13 @@ const readyStateCheckInterval = setInterval(function () {
             _ENABLE_LIST[11] = response.sc_like;
             _ENABLE_LIST[12] = response.reddit_follow;
             _ENABLE_LIST[13] = response.reddit_like;
+            _ENABLE_LIST[14] = response.coinmarketcap_watch;
+            _ENABLE_LIST[15] = response.telegram_follow;
+            _ENABLE_LIST[16] = response.twitch_follow;
+            _ENABLE_LIST[17] = response.website_view;
+            _ENABLE_LIST[18] = response.likee_follow;
+            _ENABLE_LIST[19] = response.ok_follow;
+            _ENABLE_LIST[20] = response.reverbnation_follow;
 
             config.actionType = response.actType;
             tab_id = response.tabid;
@@ -357,14 +421,27 @@ const readyStateCheckInterval = setInterval(function () {
     }
 
     if (cur_url.indexOf("reddit.com") !== -1) {
-        console.log(" DEBUG 1");
-
-
         do_reddit();
+        return;
+    }
 
-        console.log(cur_url.indexOf("reddit.com"));
-        console.log(cur_url);
+    if (cur_url.indexOf("coinmarketcap.com") !== -1) {
+        do_coinmarketcap();
+        return;
+    }
 
+    if (cur_url.indexOf("twitch.tv") !== -1) {
+        do_twitch();
+        return;
+    }
+
+    if (cur_url.indexOf("likee.video") !== -1) {
+        do_likee();
+        return;
+    }
+
+    if (cur_url.indexOf("reverbnation.com") !== -1) {
+        do_reverbnation();
         return;
     }
 
@@ -395,6 +472,7 @@ const readyStateCheckInterval = setInterval(function () {
 
     const cat = urlToActionType(cur_url);
     if (cat === -1) {
+        console.log(cur_url)
         console.log("unknown url, get next type");
         nextActionType();
         state = _STATE_WAIT;
