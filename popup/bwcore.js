@@ -14,7 +14,14 @@ const config = {
     sc_follow: false,
     sc_like: false,
     reddit_follow: false,
-    reddit_like: false
+    reddit_like: false,
+    coinmarketcap_watch: false,
+    telegram_follow: false,
+    twitch_follow: false,
+    website_view: false,
+    likee_follow: false,
+    ok_follow: false,
+    reverbnation_follow: false
 };
 
 $(document).ready(function () {
@@ -39,6 +46,13 @@ $(document).ready(function () {
             config.sc_like = $("#sc-like").is(":checked");
             config.reddit_follow = $("#reddit-follow").is(":checked");
             config.reddit_like = $("#reddit-like").is(":checked");
+            config.coinmarketcap_watch = $("#coinmarketcap-watch").is(":checked");
+            config.telegram_follow = $("#telegram-follow").is(":checked");
+            config.twitch_follow = $("#twitch-follow").is(":checked");
+            config.website_view = $("#website-view").is(":checked");
+            config.likee_follow = $("#likee-follow").is(":checked");
+            config.ok_follow = $("#ok-follow").is(":checked");
+            config.reverbnation_follow = $("#reverbnation-follow").is(":checked");
 
             if (
                 (!config.ig_like) && (!config.ig_follow)
@@ -48,6 +62,13 @@ $(document).ready(function () {
                 && (!config.yt_sub) && (!config.yt_like)
                 && (!config.sc_follow) && (!config.sc_like)
                 && (!config.reddit_follow) && (!config.reddit_like)
+                && (!config.coinmarketcap_watch)
+                && (!config.telegram_follow)
+                && (!config.twitch_follow)
+                && (!config.website_view)
+                && (!config.likee_follow)
+                && (!config.ok_follow)
+                && (!config.reverbnation_follow)
             ) {
                 return;
             }
@@ -65,7 +86,14 @@ $(document).ready(function () {
                 twitter_follow: config.twitter_follow, twitter_like: config.twitter_like,
                 yt_sub: config.yt_sub, yt_like: config.yt_like,
                 sc_follow: config.sc_follow, sc_like: config.sc_like,
-                reddit_follow: config.reddit_follow, reddit_like: config.reddit_like
+                reddit_follow: config.reddit_follow, reddit_like: config.reddit_like,
+                coinmarketcap_watch: config.coinmarketcap_watch,
+                telegram_follow: config.telegram_follow,
+                twitch_follow: config.twitch_follow,
+                website_view: config.website_view,
+                likee_follow: config.likee_follow,
+                ok_follow: config.ok_follow,
+                reverbnation_follow: config.reverbnation_follow
             });
 
         } else {
@@ -102,8 +130,14 @@ function set_status() {
         sc_follow: config.sc_follow,
         sc_like: config.sc_like,
         reddit_follow: config.reddit_follow,
-        reddit_like: config.reddit_like
-
+        reddit_like: config.reddit_like,
+        coinmarketcap_watch: config.coinmarketcap_watch,
+        telegram_follow: config.telegram_follow,
+        twitch_follow: config.twitch_follow,
+        website_view: config.website_view,
+        likee_follow: config.likee_follow,
+        ok_follow: config.ok_follow,
+        reverbnation_follow: config.reverbnation_follow
     }, function (response) {
     });
 
@@ -130,6 +164,13 @@ function get_status() {
         config.sc_like = response.sc_like;
         config.reddit_follow = response.reddit_follow;
         config.reddit_like = response.reddit_like;
+        config.coinmarketcap_watch = response.coinmarketcap_watch;
+        config.telegram_follow = response.telegram_follow;
+        config.twitch_follow = response.twitch_follow;
+        config.website_view = response.website_view;
+        config.likee_follow = response.likee_follow;
+        config.ok_follow = response.ok_follow;
+        config.reverbnation_follow = response.reverbnation_follow;
 
         if (config.enable === 0) {
             $b.text("Start");
@@ -157,6 +198,13 @@ function get_status() {
         $('#sc-like').prop("checked", config.sc_like);
         $('#reddit-follow').prop("checked", config.reddit_follow);
         $('#reddit-like').prop("checked", config.reddit_like);
+        $('#coinmarketcap-watch').prop("checked", config.coinmarketcap_watch);
+        $('#telegram-follow').prop("checked", config.telegram_follow);
+        $('#twitch-follow').prop("checked", config.twitch_follow);
+        $('#website-view').prop("checked", config.website_view);
+        $('#likee-follow').prop("checked", config.likee_follow);
+        $('#ok_follow').prop("checked", config.ok_follow);
+        $('#reverbnation-follow').prop("checked", config.reverbnation_follow);
 
         EnableControls(!!config.enable);
     });
@@ -194,4 +242,11 @@ function EnableControls(val) {
     $('#sc-like').prop("disabled", val);
     $('#reddit-follow').prop("disabled", val);
     $('#reddit-like').prop("disabled", val);
+    $('#coinmarketcap-watch').prop("disabled", val);
+    $('#telegram-follow').prop("disabled", val);
+    $('#twitch-follow').prop("disabled", val);
+    $('#website-view').prop("disabled", val);
+    $('#likee-follow').prop("disabled", val);
+    $('#ok-follow').prop("disabled", val);
+    $('#reverbnation-follow').prop("disabled", val);
 }

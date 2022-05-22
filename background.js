@@ -20,6 +20,13 @@ const config = {
     sc_like: false,
     reddit_follow: false,
     reddit_like: false,
+    coinmarketcap_watch: false,
+    telegram_follow: false,
+    twitch_follow: false,
+    website_view: false,
+    likee_follow: false,
+    ok_follow: false,
+    reverbnation_follow: false,
     actionType: 3,
 };
 
@@ -44,6 +51,13 @@ chrome.runtime.onMessage.addListener(
             config.sc_like = request.sc_like;
             config.reddit_follow = request.reddit_follow;
             config.reddit_like = request.reddit_like;
+            config.coinmarketcap_watch = request.coinmarketcap_watch;
+            config.telegram_follow = request.telegram_follow;
+            config.twitch_follow = request.twitch_follow;
+            config.website_view = request.website_view;
+            config.likee_follow = request.likee_follow;
+            config.ok_follow = request.ok_follow;
+            config.reverbnation_follow = request.reverbnation_follow;
 
             send_enable();
             return;
@@ -72,6 +86,13 @@ chrome.runtime.onMessage.addListener(
                 sc_like: config.sc_like,
                 reddit_follow: config.reddit_follow,
                 reddit_like: config.reddit_like,
+                coinmarketcap_watch: config.coinmarketcap_watch,
+                telegram_follow: config.telegram_follow,
+                twitch_follow: config.twitch_follow,
+                website_view: config.website_view,
+                likee_follow: config.likee_follow,
+                ok_follow: config.ok_follow,
+                reverbnation_follow: config.reverbnation_follow,
 
                 actType: config.actionType,
                 tabid: vtabid
@@ -118,6 +139,13 @@ function send_enable() {
             sc_like: config.sc_like,
             reddit_follow: config.reddit_follow,
             reddit_like: config.reddit_like,
+            coinmarketcap_watch: config.coinmarketcap_watch,
+            telegram_follow: config.telegram_follow,
+            twitch_follow: config.twitch_follow,
+            website_view: config.website_view,
+            likee_follow: config.likee_follow,
+            ok_follow: config.ok_follow,
+            reverbnation_follow: config.reverbnation_follow,
 
             actType: config.actionType
         };
@@ -245,6 +273,55 @@ chrome.storage.sync.get('reddit-like', function (data) {
     if ((data.reddit_like) && (data.reddit_like !== 0)) {
         config.reddit_like = data.reddit_like;
         console.log("reddit-like From config : " + config.reddit_like);
+    }
+});
+
+chrome.storage.sync.get('coinmarketcap-watch', function (data) {
+    if ((data.coinmarketcap_watch) && (data.coinmarketcap_watch !== 0)) {
+        config.coinmarketcap_watch = data.coinmarketcap_watch;
+        console.log("coinmarketcap-watch From config : " + config.coinmarketcap_watch);
+    }
+});
+
+chrome.storage.sync.get('telegram-follow', function (data) {
+    if ((data.telegram_follow) && (data.telegram_follow !== 0)) {
+        config.telegram_follow = data.telegram_follow;
+        console.log("telegram-follow From config : " + config.telegram_follow);
+    }
+});
+
+chrome.storage.sync.get('twitch-follow', function (data) {
+    if ((data.twitch_follow) && (data.twitch_follow !== 0)) {
+        config.twitch_follow = data.twitch_follow;
+        console.log("twitch-follow From config : " + config.twitch_follow);
+    }
+});
+
+chrome.storage.sync.get('website-view', function (data) {
+    if ((data.website_view) && (data.website_view !== 0)) {
+        config.website_view = data.website_view;
+        console.log("website_view From config : " + config.website_view);
+    }
+});
+
+chrome.storage.sync.get('likee-follow', function (data) {
+    if ((data.likee_follow) && (data.likee_follow !== 0)) {
+        config.likee_follow = data.likee_follow;
+        console.log("likee_follow From config : " + config.likee_follow);
+    }
+});
+
+chrome.storage.sync.get('ok-follow', function (data) {
+    if ((data.ok_follow) && (data.ok_follow !== 0)) {
+        config.ok_follow = data.ok_follow;
+        console.log("ok_follow From config : " + config.ok_follow);
+    }
+});
+
+chrome.storage.sync.get('reverbnation-follow', function (data) {
+    if ((data.reverbnation_follow) && (data.reverbnation_follow !== 0)) {
+        config.reverbnation_follow = data.reverbnation_follow;
+        console.log("reverbnation_follow From config : " + config.reverbnation_follow);
     }
 });
 
