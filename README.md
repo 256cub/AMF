@@ -35,7 +35,7 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
 ### Network to add
 
 - CoinMarketCap
-    - [ ] Watchlist
+    - [x] <strike>Watchlist</strike>
 - Facebook
     - [x] <strike>Page Likes/Followers</strike>
     - [ ] Share
@@ -63,14 +63,14 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
     - [x] <strike>Likes</strike>
     - [ ] Views
 - Twitch
-    - [ ] Followers
+    - [x] <strike>Followers</strike>
 - Website
     - [ ] Hits
 - Pinterest
     - [ ] Save
     - [ ] Followers
 - Likee
-    - [ ] Followers/Fans
+    - [x] <strike>Followers/Fans</strike>
 - SoundCloud
     - [x] <strike>Likes</strike>
     - [x] <strike>Follow</strike>
@@ -81,7 +81,7 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
 - OK.ru
     - [ ] Group Join
 - Reverbnation
-    - [ ] Fans
+    - [x] <strike>Fans</strike>
 
 ---
 ## Buy Me a Coffee
