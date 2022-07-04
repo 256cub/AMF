@@ -61,7 +61,7 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
 - YouTube
     - [x] <strike>Subscribe</strike>
     - [x] <strike>Likes</strike>
-    - [ ] Views
+    - [ ] Views(need Captcha solver)
 - Twitch
     - [x] <strike>Followers</strike>
 - Website
@@ -74,7 +74,7 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
 - SoundCloud
     - [x] <strike>Likes</strike>
     - [x] <strike>Follow</strike>
-    - [ ] Plays
+    - [ ] Plays(need Captcha solver)
 - Vkontakte
     - [ ] Groups
     - [ ] Pages
