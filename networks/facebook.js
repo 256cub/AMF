@@ -85,16 +85,41 @@ function do_fb_post_share(){
 	state = _STATE_WAIT_TO_CLOSE;
 	wait_time = 6;
 
-	var div = document.querySelector('span[id="u_0_26_wc"]');
-	// var div = document.querySelector('div[text()="Share"]');
-	if(!div) { return; }
-	div.click();
+	const btns = document.getElementsByTagName("span");
+	if (!btns) {
+		return false;
+	}
 
-	var div = document.querySelector('span[id="u_0_26_wc"]');
-	// var div = document.querySelector('div[text()="Share now (Friends)"]');
-	if(!div) { return; }
-	div.click();
+	if (btns.length < 1) {
+		return false;
+	}
 
+	for (let i = 0; i < btns.length; i++) {
+		if (btns[i].textContent === "Share") {
+			click(btns[i]);
+			break;
+			// return true;
+
+		}
+	}
+
+	const btns_next = document.getElementsByTagName("span");
+	if (!btns_next) {
+		return false;
+	}
+
+	if (btns.length < 1) {
+		return false;
+	}
+
+	for (let i = 0; i < btns_next.length; i++) {
+		if (btns_next[i].textContent === "Share now") {
+			click(btns_next[i]);
+			return true;
+		}
+	}
+
+	return false;
 }
 
 var facebook_done = false;
