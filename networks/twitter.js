@@ -60,13 +60,20 @@ function do_twitter_retweet() {
 
 function do_twitter_tweet() {
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    const btns_next = document.getElementsByTagName("span");
+    if (!btns_next) {
+        return false;
+    }
 
-    var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
-    if ((div) && (div.textContent === "Tweet")) {
-        div.click();
-        return true;
+    if (btns.length < 1) {
+        return false;
+    }
+
+    for (let i = 0; i < btns_next.length; i++) {
+        if (btns_next[i].textContent === "Tweet") {
+            click(btns_next[i]);
+            return true;
+        }
     }
 
     return false;
@@ -93,19 +100,24 @@ function do_twitter() {
     twitter_done = true;
     console.log("config.actionType = " + config.actionType);
 
-    if (config.actionType === _ACTION_TYPE_TWITTER_LIKE) {
-
-        do_twitter_like();
-        return;
-    }
-
     if (config.actionType === _ACTION_TYPE_TWITTER_FOLLOW) {
         do_twitter_follow();
         return;
     }
 
-    if (config.actionType === _ACTION_TYPE_TWITTER_RET) {
-        do_twitter_follow();
+    if (config.actionType === _ACTION_TYPE_TWITTER_TWEET) {
+        do_twitter_tweet();
         return;
     }
+
+    if (config.actionType === _ACTION_TYPE_TWITTER_RETWEET) {
+        do_twitter_retweet();
+        return;
+    }
+
+    if (config.actionType === _ACTION_TYPE_TWITTER_LIKE) {
+        do_twitter_like();
+        return;
+    }
+
 }

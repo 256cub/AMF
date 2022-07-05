@@ -2,6 +2,21 @@
 ### Automatic Bot Extension for [AddMeFast.com](http://addmf.co/?BS9J0FO)
 
 ---
+### What to do if bot not working for some network:
+1. Remove extension from Google Chrome
+2. Git pull to the newest version/release
+3. Install extension again
+4. If all 3 steps still not solved the issue then open a new issue on GitHub with details(including steps to recreate the issue)
+
+---
+### Some action not counting, what to do?
+#### * if bot execute needed action but AddMeFAst don't count that action then it's NOT A BOT ISSUE
+ * what can you to solve issue on AddMeFast side:
+1. Log out from network with issue.
+2. Clear cache.
+3. Log in. It is better always to use a new account(for example for YouTube, you can create multiple channels with some gmail account [detail](https://www.lifewire.com/more-than-one-youtube-channel-1616988))
+
+---
 ### Release Histories:
 - 1.0.2
   - added new networks:
@@ -12,7 +27,6 @@
     - Facebook Post Share
   - fixed bugs related to redirecting to main page
   - fixed reddit/youtube/soundcloud
-  - added counter for actions per type(experimental)
 
 
 - 1.0.1
@@ -24,6 +38,12 @@
 
 - 1.0.0
   - 1st release
+
+---
+### Instruction to update bot to the latest version
+1. Remove extension from Google Chrome
+2. Git pull to the newest version/release
+3. Install extension again
 
 ---
 ### Instruction to install
@@ -50,15 +70,15 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
     - [x] <strike>Watchlist</strike>
 - Facebook
     - [x] <strike>Page Likes/Followers</strike>
-    - [ ] Share
-    - [ ] Followers
+    - [x] <strike>Share</strike>
+    - [x] <strike>Followers</strike>
     - [x] <strike>Post Like</strike>
-    - [ ] Post Share
+    - [x] <strike>Post Share</strike>
 - Reddit
     - [x] <strike>Members</strike>
     - [x] <strike>Upvotes</strike>
 - Telegram
-    - [ ] Channels
+    - [ ] Channels(not sure how to do, if you have any idea open an issue with details)
 - Instagram
     - [x] <strike>Followers</strike>
     - [x] <strike>Likes</strike>
@@ -67,8 +87,8 @@ Facebook, Twitter, Instagram, TikTok, YouTube and many more.
     - [x] <strike>Followers</strike>
 - Twitter
     - [x] <strike>Followers</strike>
-    - [ ] Tweets
-    - [ ] Retweets
+    - [x] <strike>Tweets</strike>
+    - [x] <strike>Retweets</strike>
     - [x] <strike>Likes</strike>
 - YouTube
     - [x] <strike>Subscribe</strike>

@@ -10,12 +10,6 @@ function do_fb_page_like(){
 	var div = document.querySelector('div[aria-label="Like"]');
 	if(!div) { return; }
 	div.click();
-}
-
-function do_fb_share(){
-
-	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = 6;
 
 	const btns = document.getElementsByTagName("div");
 	if (!btns) {
@@ -27,6 +21,35 @@ function do_fb_share(){
 	}
 
 	for (let i = 0; i < btns.length; i++) {
+
+		if (btns[i].textContent === "Following") {
+			click(btns[i]);
+			// return true;
+		}
+
+		if (btns[i].textContent === "Follow") {
+			click(btns[i]);
+			return true;
+		}
+	}
+}
+
+function do_fb_share(){
+
+	state = _STATE_WAIT_TO_CLOSE;
+	wait_time = 6;
+
+	const btns = document.getElementsByTagName("button");
+	if (!btns) {
+		return false;
+	}
+
+	if (btns.length < 1) {
+		return false;
+	}
+
+	for (let i = 0; i < btns.length; i++) {
+		console.log(btns[i].textContent)
 		if (btns[i].textContent === "Post to Facebook") {
 			click(btns[i]);
 			return true;
@@ -41,7 +64,7 @@ function do_fb_follow(){
 	state = _STATE_WAIT_TO_CLOSE;
 	wait_time = 6;
 
-	const btns = document.getElementsByTagName("div");
+	const btns = document.getElementsByTagName("span");
 	if (!btns) {
 		return false;
 	}
@@ -113,7 +136,7 @@ function do_fb_post_share(){
 	}
 
 	for (let i = 0; i < btns_next.length; i++) {
-		if (btns_next[i].textContent === "Share now") {
+		if (btns_next[i].textContent === "Share now (Friends)") {
 			click(btns_next[i]);
 			return true;
 		}
