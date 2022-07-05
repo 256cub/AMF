@@ -1,51 +1,96 @@
 const _MAX_LOADING_WAIT_TIME = 30;
 const _TIMEOUT_IN_SECS = 60;
-const _MAX_TYPE = 12;
+const _MAX_TYPE = 26;
 
 const _ACTION_TYPE_TIKTOK_LIKE = 0;
 const _ACTION_TYPE_TIKTOK_FOLLOW = 1;
+
 const _ACTION_TYPE_INSTAGRAM_LIKE = 2;
 const _ACTION_TYPE_INSTAGRAM_FOLLOW = 3;
-const _ACTION_TYPE_FACEBOOK_POST_LIKE = 4;
-const _ACTION_TYPE_FACEBOOK_LIKE = 5;
-const _ACTION_TYPE_TWITTER_FOLLOW = 6;
-const _ACTION_TYPE_TWITTER_LIKE = 7;
-const _ACTION_TYPE_YT_SUB = 8;
-const _ACTION_TYPE_YT_LIKE = 9;
-const _ACTION_TYPE_SC_FOLLOW = 10;
-const _ACTION_TYPE_SC_LIKE = 11;
-const _ACTION_TYPE_REDDIT_FOLLOW = 12;
-const _ACTION_TYPE_REDDIT_LIKE = 13;
-const _ACTION_TYPE_COINMARKETCAT_WATCH = 14;
-const _ACTION_TYPE_TELEGRAM_FOLLOW = 15;
-const _ACTION_TYPE_TWITCH_FOLLOW = 16;
-const _ACTION_TYPE_WEBSITE_VIEW = 17;
-const _ACTION_TYPE_LIKEE_FOLLOW = 18;
-const _ACTION_TYPE_OK_FOLLOW = 19;
-const _ACTION_TYPE_REVERBNATION_FOLLOW = 20;
+
+const _ACTION_TYPE_FACEBOOK_PAGE_LIKE = 4;
+const _ACTION_TYPE_FACEBOOK_SHARE = 5;
+const _ACTION_TYPE_FACEBOOK_FOLLOW = 6;
+const _ACTION_TYPE_FACEBOOK_POST_LIKE = 7;
+const _ACTION_TYPE_FACEBOOK_POST_SHARE = 8;
+
+const _ACTION_TYPE_TWITTER_FOLLOW = 9;
+const _ACTION_TYPE_TWITTER_TWEET = 10;
+const _ACTION_TYPE_TWITTER_RETWEET = 11;
+const _ACTION_TYPE_TWITTER_LIKE = 12;
+
+const _ACTION_TYPE_YT_SUB = 13;
+const _ACTION_TYPE_YT_LIKE = 14;
+
+const _ACTION_TYPE_SC_FOLLOW = 15;
+const _ACTION_TYPE_SC_LIKE = 16;
+
+const _ACTION_TYPE_REDDIT_FOLLOW = 17;
+const _ACTION_TYPE_REDDIT_LIKE = 18;
+
+const _ACTION_TYPE_COINMARKETCAT_WATCH = 19;
+
+const _ACTION_TYPE_TELEGRAM_FOLLOW = 20;
+
+const _ACTION_TYPE_TWITCH_FOLLOW = 21;
+
+const _ACTION_TYPE_WEBSITE_VIEW = 22;
+
+const _ACTION_TYPE_LIKEE_FOLLOW = 23;
+
+const _ACTION_TYPE_OK_FOLLOW = 24;
+
+const _ACTION_TYPE_REVERBNATION_FOLLOW = 25;
 
 
 const _TIKTOK_FOLLOW = "https://addmefast.com/free_points/tiktok_followers";
 const _TIKTOK_LIKE = "https://addmefast.com/free_points/tiktok_video_likes";
+
 const _INSTAGRAM_FOLLOW = "https://addmefast.com/free_points/instagram";
 const _INSTAGRAM_LIKES = "https://addmefast.com/free_points/instagram_likes";
+
+const _FACEBOOK_PAGE_LIKE = "https://addmefast.com/free_points/facebook_likes";
+const _FACEBOOK_SHARE = "https://addmefast.com/free_points/facebook_share";
+const _FACEBOOK_FOLLOW = "https://addmefast.com/free_points/facebook_subscribes";
 const _FACEBOOK_POST_LIKE = "https://addmefast.com/free_points/facebook_post_like";
-const _FACEBOOK_LIKE = "https://addmefast.com/free_points/facebook_likes";
+const _FACEBOOK_POST_SHARE = "https://addmefast.com/free_points/facebook_post_share";
+
 const _TWITTER_FOLLOW = "https://addmefast.com/free_points/twitter";
+const _TWITTER_TWEET = "https://addmefast.com/free_points/twitter_tweets";
+const _TWITTER_RETWEET = "https://addmefast.com/free_points/twitter_retweets";
 const _TWITTER_LIKE = "https://addmefast.com/free_points/twitter_likes";
+
 const _YT_SUB = "https://addmefast.com/free_points/youtube_subscribe";
 const _YT_LIKE = "https://addmefast.com/free_points/youtube_likes";
+
 const _SC_FOLLOW = "https://addmefast.com/free_points/soundcloud_follow";
 const _SC_LIKE = "https://addmefast.com/free_points/soundcloud_likes";
+
 const _REDDIT_FOLLOW = "https://addmefast.com/free_points/reddit_members";
 const _REDDIT_LIKE = "https://addmefast.com/free_points/reddit_upvotes";
+
 const _COINMARKETCAP_WATCH = "https://addmefast.com/free_points/coinmarketcap_watchlist";
+
 const _TELEGRAM_FOLLOW = "https://addmefast.com/free_points/telegram_subscribers";
+
 const _TWITCH_FOLLOW = "https://addmefast.com/free_points/twitch_followers";
+
 const _WEBSITE_VIEW = "https://addmefast.com/websites";
+
 const _LIKEE_FOLLOW = "https://addmefast.com/free_points/likee_followers";
+
 const _OK_FOLLOW = "https://addmefast.com/free_points/ok_group_join";
+
 const _REVERBNATION_FOLLOW = "https://addmefast.com/free_points/reverbnation_fan";
+
+counter = {
+    'reddit': {
+        total: 0,
+        good: 0,
+        bad: 0,
+    }
+}
+
 
 tick_count = 0;
 first = true;
@@ -75,7 +120,15 @@ function clog(s) {
     chrome.runtime.sendMessage({action: "log", log: s});
 }
 
-const _ENABLE_LIST = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+const _ENABLE_LIST = [
+    true, true, true, true, true,
+    true, true, true, true, true,
+    true, true, true, true, true,
+    true, true, true, false, true,
+    false, true, true, true, true,
+    true, true, true, true, true,
+    true, true, true, true, true,
+    true];
 
 function nextActionType() {
 
@@ -116,16 +169,36 @@ function nextActionType() {
             CurActionUrl = _INSTAGRAM_FOLLOW;
             break;
 
+        case _ACTION_TYPE_FACEBOOK_PAGE_LIKE :
+            CurActionUrl = _FACEBOOK_PAGE_LIKE;
+            break;
+
+        case _ACTION_TYPE_FACEBOOK_SHARE :
+            CurActionUrl = _FACEBOOK_SHARE;
+            break;
+
+        case _ACTION_TYPE_FACEBOOK_FOLLOW :
+            CurActionUrl = _FACEBOOK_FOLLOW;
+            break;
+
         case _ACTION_TYPE_FACEBOOK_POST_LIKE :
             CurActionUrl = _FACEBOOK_POST_LIKE;
             break;
 
-        case _ACTION_TYPE_FACEBOOK_LIKE :
-            CurActionUrl = _FACEBOOK_LIKE;
+        case _ACTION_TYPE_FACEBOOK_POST_SHARE :
+            CurActionUrl = _FACEBOOK_POST_SHARE;
             break;
 
         case _ACTION_TYPE_TWITTER_FOLLOW :
             CurActionUrl = _TWITTER_FOLLOW;
+            break;
+
+        case _ACTION_TYPE_TWITTER_TWEET :
+            CurActionUrl = _TWITTER_TWEET;
+            break;
+
+        case _ACTION_TYPE_TWITTER_RETWEET :
+            CurActionUrl = _TWITTER_RETWEET;
             break;
 
         case _ACTION_TYPE_TWITTER_LIKE :
@@ -193,24 +266,42 @@ function urlToActionType(current_url) {
 
     if (current_url === _TIKTOK_LIKE) return _ACTION_TYPE_TIKTOK_LIKE;
     if (current_url === _TIKTOK_FOLLOW) return _ACTION_TYPE_TIKTOK_FOLLOW;
+
     if (current_url === _INSTAGRAM_LIKES) return _ACTION_TYPE_INSTAGRAM_LIKE;
     if (current_url === _INSTAGRAM_FOLLOW) return _ACTION_TYPE_INSTAGRAM_FOLLOW;
+
+    if (current_url === _FACEBOOK_PAGE_LIKE) return _ACTION_TYPE_FACEBOOK_PAGE_LIKE;
+    if (current_url === _FACEBOOK_SHARE) return _ACTION_TYPE_FACEBOOK_SHARE;
+    if (current_url === _FACEBOOK_FOLLOW) return _ACTION_TYPE_FACEBOOK_FOLLOW;
     if (current_url === _FACEBOOK_POST_LIKE) return _ACTION_TYPE_FACEBOOK_POST_LIKE;
-    if (current_url === _FACEBOOK_LIKE) return _ACTION_TYPE_FACEBOOK_LIKE;
+    if (current_url === _FACEBOOK_POST_SHARE) return _ACTION_TYPE_FACEBOOK_POST_SHARE;
+
     if (current_url === _TWITTER_FOLLOW) return _ACTION_TYPE_TWITTER_FOLLOW;
+    if (current_url === _TWITTER_TWEET) return _ACTION_TYPE_TWITTER_TWEET;
+    if (current_url === _TWITTER_RETWEET) return _ACTION_TYPE_TWITTER_RETWEET;
     if (current_url === _TWITTER_LIKE) return _ACTION_TYPE_TWITTER_LIKE;
+
     if (current_url === _YT_SUB) return _ACTION_TYPE_YT_SUB;
     if (current_url === _YT_LIKE) return _ACTION_TYPE_YT_LIKE;
+
     if (current_url === _SC_FOLLOW) return _ACTION_TYPE_SC_FOLLOW;
     if (current_url === _SC_LIKE) return _ACTION_TYPE_SC_LIKE;
+
     if (current_url === _REDDIT_FOLLOW) return _ACTION_TYPE_REDDIT_FOLLOW;
     if (current_url === _REDDIT_LIKE) return _ACTION_TYPE_REDDIT_LIKE;
+
     if (current_url === _COINMARKETCAP_WATCH) return _ACTION_TYPE_COINMARKETCAT_WATCH;
+
     if (current_url === _TELEGRAM_FOLLOW) return _ACTION_TYPE_TELEGRAM_FOLLOW;
+
     if (current_url === _TWITCH_FOLLOW) return _ACTION_TYPE_TWITCH_FOLLOW;
+
     if (current_url === _WEBSITE_VIEW) return _ACTION_TYPE_WEBSITE_VIEW;
+
     if (current_url === _LIKEE_FOLLOW) return _ACTION_TYPE_LIKEE_FOLLOW;
+
     if (current_url === _OK_FOLLOW) return _ACTION_TYPE_OK_FOLLOW;
+
     if (current_url === _REVERBNATION_FOLLOW) return _ACTION_TYPE_REVERBNATION_FOLLOW;
 
     return -1;
@@ -252,25 +343,43 @@ chrome.runtime.onMessage.addListener(
 
             _ENABLE_LIST[0] = request.tiktok_like;
             _ENABLE_LIST[1] = request.tiktok_follow;
+
             _ENABLE_LIST[2] = request.ig_like;
             _ENABLE_LIST[3] = request.ig_follow;
-            _ENABLE_LIST[4] = request.fb_post_like;
-            _ENABLE_LIST[5] = request.fb_like;
-            _ENABLE_LIST[6] = request.twitter_follow;
-            _ENABLE_LIST[7] = request.twitter_like;
-            _ENABLE_LIST[8] = request.yt_sub;
-            _ENABLE_LIST[9] = request.yt_like;
-            _ENABLE_LIST[10] = request.sc_follow;
-            _ENABLE_LIST[11] = request.sc_like;
-            _ENABLE_LIST[12] = request.reddit_follow;
-            _ENABLE_LIST[13] = request.reddit_like;
-            _ENABLE_LIST[14] = request.coinmarketcap_watch;
-            _ENABLE_LIST[15] = request.telegram_follow;
-            _ENABLE_LIST[16] = request.twitch_follow;
-            _ENABLE_LIST[17] = request.website_view;
-            _ENABLE_LIST[18] = request.likee_follow;
-            _ENABLE_LIST[19] = request.ok_follow;
-            _ENABLE_LIST[20] = request.reverbnation_follow;
+
+            _ENABLE_LIST[4] = request.fb_page_like;
+            _ENABLE_LIST[5] = request.fb_share;
+            _ENABLE_LIST[6] = request.fb_follow;
+            _ENABLE_LIST[7] = request.fb_post_like;
+            _ENABLE_LIST[8] = request.fb_post_share;
+
+            _ENABLE_LIST[9] = request.twitter_follow;
+            _ENABLE_LIST[10] = request.twitter_tweet;
+            _ENABLE_LIST[11] = request.twitter_retweet;
+            _ENABLE_LIST[12] = request.twitter_like;
+
+            _ENABLE_LIST[13] = request.yt_sub;
+            _ENABLE_LIST[14] = request.yt_like;
+
+            _ENABLE_LIST[15] = request.sc_follow;
+            _ENABLE_LIST[16] = request.sc_like;
+
+            _ENABLE_LIST[17] = request.reddit_follow;
+            _ENABLE_LIST[18] = request.reddit_like;
+
+            _ENABLE_LIST[19] = request.coinmarketcap_watch;
+
+            _ENABLE_LIST[20] = request.telegram_follow;
+
+            _ENABLE_LIST[21] = request.twitch_follow;
+
+            _ENABLE_LIST[22] = request.website_view;
+
+            _ENABLE_LIST[23] = request.likee_follow;
+
+            _ENABLE_LIST[24] = request.ok_follow;
+
+            _ENABLE_LIST[25] = request.reverbnation_follow;
 
             if (config.enable) {
                 window.location.href = "https://www.addmefast.com";
@@ -347,25 +456,43 @@ const readyStateCheckInterval = setInterval(function () {
 
             _ENABLE_LIST[0] = response.tiktok_like;
             _ENABLE_LIST[1] = response.tiktok_follow;
+
             _ENABLE_LIST[2] = response.ig_like;
             _ENABLE_LIST[3] = response.ig_follow;
-            _ENABLE_LIST[4] = response.fb_post_like;
-            _ENABLE_LIST[5] = response.fb_like;
-            _ENABLE_LIST[6] = response.twitter_follow;
-            _ENABLE_LIST[7] = response.twitter_like;
-            _ENABLE_LIST[8] = response.yt_sub;
-            _ENABLE_LIST[9] = response.yt_like;
-            _ENABLE_LIST[10] = response.sc_follow;
-            _ENABLE_LIST[11] = response.sc_like;
-            _ENABLE_LIST[12] = response.reddit_follow;
-            _ENABLE_LIST[13] = response.reddit_like;
-            _ENABLE_LIST[14] = response.coinmarketcap_watch;
-            _ENABLE_LIST[15] = response.telegram_follow;
-            _ENABLE_LIST[16] = response.twitch_follow;
-            _ENABLE_LIST[17] = response.website_view;
-            _ENABLE_LIST[18] = response.likee_follow;
-            _ENABLE_LIST[19] = response.ok_follow;
-            _ENABLE_LIST[20] = response.reverbnation_follow;
+
+            _ENABLE_LIST[4] = response.fb_page_like;
+            _ENABLE_LIST[5] = response.fb_share;
+            _ENABLE_LIST[6] = response.fb_follow;
+            _ENABLE_LIST[7] = response.fb_post_like;
+            _ENABLE_LIST[8] = response.fb_post_share;
+
+            _ENABLE_LIST[9] = response.twitter_follow;
+            _ENABLE_LIST[10] = response.twitter_tweet;
+            _ENABLE_LIST[11] = response.twitter_retweet;
+            _ENABLE_LIST[12] = response.twitter_like;
+
+            _ENABLE_LIST[13] = response.yt_sub;
+            _ENABLE_LIST[14] = response.yt_like;
+
+            _ENABLE_LIST[15] = response.sc_follow;
+            _ENABLE_LIST[16] = response.sc_like;
+
+            _ENABLE_LIST[17] = response.reddit_follow;
+            _ENABLE_LIST[18] = response.reddit_like;
+
+            _ENABLE_LIST[19] = response.coinmarketcap_watch;
+
+            _ENABLE_LIST[20] = response.telegram_follow;
+
+            _ENABLE_LIST[21] = response.twitch_follow;
+
+            _ENABLE_LIST[22] = response.website_view;
+
+            _ENABLE_LIST[23] = response.likee_follow;
+
+            _ENABLE_LIST[24] = response.ok_follow;
+
+            _ENABLE_LIST[25] = response.reverbnation_follow;
 
             config.actionType = response.actType;
             tab_id = response.tabid;

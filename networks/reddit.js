@@ -1,3 +1,4 @@
+
 function do_reddit_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
@@ -11,6 +12,18 @@ function do_reddit_like() {
     }
 
     btn.click();
+
+    if (counter['reddit_like']) {
+        counter['reddit_like'] = counter['reddit_like'] + 1;
+    } else {
+        counter['reddit_like'] = {
+            total: 0,
+            good: 0,
+            bad: 0,
+        }
+    }
+
+    console.log(counter)
 }
 
 function do_reddit_follow() {
@@ -18,15 +31,11 @@ function do_reddit_follow() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = 6;
 
-    console.log("DEBUG 1");
-
     let btn = document.querySelector('button._1LHxa-yaHJwrPK8kuyv_Y4');
     if (!btn) {
         console.log("follow button not found !");
         return;
     }
-
-    console.log("DEBUG 2");
 
     btn.click();
 }
@@ -34,8 +43,6 @@ function do_reddit_follow() {
 let reddit_done = false;
 
 function do_reddit() {
-
-    console.log("DEBUG 3");
 
     // wait for 5 seconds
     if (tick_count < 2) {

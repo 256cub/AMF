@@ -3,10 +3,10 @@ function do_instagram_like(){
 	state = _STATE_WAIT_TO_CLOSE;
 	wait_time = 6;
 	
-	var sec = document.querySelector('section.Slqrh');
+	var sec = document.querySelector('section._aamu');
 	if(!sec) { return; }
 	
-	var btns = sec.querySelectorAll("svg._8-yf5");
+	var btns = sec.querySelectorAll("svg._ab6-");
 	if(!btns) { return; }
 	
 	for(var i=0; i<btns.length; i++){
@@ -23,7 +23,7 @@ function do_instagram_follow(){
 	state = _STATE_WAIT_TO_CLOSE;
 	wait_time = 6;
 
-	var btns = document.querySelectorAll("button.yZn4P");
+	var btns = document.querySelectorAll("button");
 	if(!btns) { return false; }
 	if(btns.length < 1) { return false; }
 

@@ -44,6 +44,41 @@ function do_twitter_follow() {
     return false;
 }
 
+function do_twitter_retweet() {
+
+    state = _STATE_WAIT_TO_CLOSE;
+    wait_time = 6;
+
+    var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
+    if ((div) && (div.textContent === "Retweet")) {
+        div.click();
+        return true;
+    }
+
+    return false;
+}
+
+function do_twitter_tweet() {
+
+    const btns_next = document.getElementsByTagName("span");
+    if (!btns_next) {
+        return false;
+    }
+
+    if (btns.length < 1) {
+        return false;
+    }
+
+    for (let i = 0; i < btns_next.length; i++) {
+        if (btns_next[i].textContent === "Tweet") {
+            click(btns_next[i]);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 var twitter_done = false;
 
 function do_twitter() {
@@ -65,14 +100,24 @@ function do_twitter() {
     twitter_done = true;
     console.log("config.actionType = " + config.actionType);
 
-    if (config.actionType === _ACTION_TYPE_TWITTER_LIKE) {
-
-        do_twitter_like();
-        return;
-    }
-
     if (config.actionType === _ACTION_TYPE_TWITTER_FOLLOW) {
         do_twitter_follow();
         return;
     }
+
+    if (config.actionType === _ACTION_TYPE_TWITTER_TWEET) {
+        do_twitter_tweet();
+        return;
+    }
+
+    if (config.actionType === _ACTION_TYPE_TWITTER_RETWEET) {
+        do_twitter_retweet();
+        return;
+    }
+
+    if (config.actionType === _ACTION_TYPE_TWITTER_LIKE) {
+        do_twitter_like();
+        return;
+    }
+
 }
