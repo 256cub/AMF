@@ -53,7 +53,7 @@ const _FACEBOOK_PAGE_LIKE = "https://addmefast.com/free_points/facebook_likes";
 const _FACEBOOK_SHARE = "https://addmefast.com/free_points/facebook_share";
 const _FACEBOOK_FOLLOW = "https://addmefast.com/free_points/facebook_subscribes";
 const _FACEBOOK_POST_LIKE = "https://addmefast.com/free_points/facebook_post_like";
-const _FACEBOOK_POST_SHARE= "https://addmefast.com/free_points/facebook_post_share";
+const _FACEBOOK_POST_SHARE = "https://addmefast.com/free_points/facebook_post_share";
 
 const _TWITTER_FOLLOW = "https://addmefast.com/free_points/twitter";
 const _TWITTER_TWEET = "https://addmefast.com/free_points/twitter_tweets";
@@ -82,6 +82,15 @@ const _LIKEE_FOLLOW = "https://addmefast.com/free_points/likee_followers";
 const _OK_FOLLOW = "https://addmefast.com/free_points/ok_group_join";
 
 const _REVERBNATION_FOLLOW = "https://addmefast.com/free_points/reverbnation_fan";
+
+counter = {
+    'reddit': {
+        total: 0,
+        good: 0,
+        bad: 0,
+    }
+}
+
 
 tick_count = 0;
 first = true;

@@ -12,6 +12,18 @@ function do_reddit_like() {
     }
 
     btn.click();
+
+    if (counter['reddit_like']) {
+        counter['reddit_like'] = counter['reddit_like'] + 1;
+    } else {
+        counter['reddit_like'] = {
+            total: 0,
+            good: 0,
+            bad: 0,
+        }
+    }
+
+    console.log(counter)
 }
 
 function do_reddit_follow() {

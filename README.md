@@ -3,6 +3,18 @@
 
 ---
 ### Release Histories:
+- 1.0.2
+  - added new networks:
+    - Twitter Tweet
+    - Twitter Retweet
+    - Facebook Share
+    - Facebook Follow
+    - Facebook Post Share
+  - fixed bugs related to redirecting to main page
+  - fixed reddit/youtube/soundcloud
+  - added counter for actions per type(experimental)
+
+
 - 1.0.1
   - added new networks:
     - CoinMarketCap Watch
