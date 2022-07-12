@@ -2,6 +2,10 @@
 ### Automatic Bot Extension for [AddMeFast.com](http://addmf.co/?BS9J0FO)
 
 ---
+### Discord Server for Discussing/Support/Questions/Ideas
+ - [AMF Discord Server](https://discord.gg/spWgbG9ZMK)
+
+---
 ### What to do if bot not working for some network:
 1. Remove extension from Google Chrome
 2. Git pull to the newest version/release
