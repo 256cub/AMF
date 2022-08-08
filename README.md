@@ -1,9 +1,9 @@
 # AMF BOT
-### Automatic Bot Extension for [AddMeFast.com](http://addmf.co/?BS9J0FO)
+### Automatic Bot Extension for [AddMeFast.com](https://eliteurl.com/AddMeFast)
 
 ---
 ### Discord Server for Discussing/Support/Questions/Ideas
- - [AMF Discord Server](https://discord.gg/spWgbG9ZMK)
+ - [AMF Discord Server](https://eliteurl.com/AMF)
 
 ---
 ### What to do if bot not working for some network:
