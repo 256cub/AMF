@@ -1,7 +1,7 @@
 function do_twitch_sub() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(5, 8);
 
     let btn = document.querySelector('button[aria-label="Follow"]');
     if (btn) {

@@ -1,7 +1,7 @@
 function do_likee_sub() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(5, 8);
 
     const buttons = document.querySelectorAll('.follow');
     if ((!buttons) || (buttons.length < 1)) {

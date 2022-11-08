@@ -1,7 +1,7 @@
 function do_sc_like(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = 6;
+	wait_time = generateRandom(5, 8);
 	
 	var div = document.querySelector('button.sc-button-like');
 	if(!div) { 
@@ -16,7 +16,7 @@ function do_sc_like(){
 function do_sc_follow(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = 6;
+	wait_time = generateRandom(5, 8);
 
 	var div = document.querySelector('button.sc-button-follow');
 	if(!div) { 

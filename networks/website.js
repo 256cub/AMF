@@ -3,7 +3,7 @@ let website_done = false;
 function do_website() {
 
     // state = _STATE_IDLE;
-    wait_time = 30;
+    wait_time = generateRandom(30, 40);
 
     // wait for 5 seconds
     if (tick_count < 2) {
