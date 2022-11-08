@@ -1,9 +1,9 @@
 # AMF BOT
-### Automatic Bot Extension for [AddMeFast.com](https://eliteurl.com/AddMeFast)
+### Automatic Bot Extension for [AddMeFast.com](https://ads.moneycoma.com/AddMeFast)
 
 ---
 ### Discord Server for Discussing/Support/Questions/Ideas
- - [AMF Discord Server](https://eliteurl.com/AMF)
+ - [AMF Discord Server](https://ads.moneycoma.com/DiscordAMF)
 
 ---
 ### What to do if bot not working for some network:
@@ -22,6 +22,11 @@
 
 ---
 ### Release Histories:
+- 1.0.3
+  - added link to each social networks in extension popup
+  - added random wait time for all actions
+
+
 - 1.0.2
   - added new networks:
     - Twitter Tweet

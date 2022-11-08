@@ -1,7 +1,7 @@
 function do_ok_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(5, 8);
 
     let btn = document.querySelector('button[aria-label^="like"]');
     if (btn) {
@@ -14,7 +14,7 @@ function do_ok_like() {
 function do_ok_sub() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(5, 8);
 
     const buttons = document.querySelectorAll('.ytd-subscribe-button-renderer');
     if ((!buttons) || (buttons.length < 1)) {

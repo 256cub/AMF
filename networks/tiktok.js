@@ -1,7 +1,7 @@
 function do_tiktok_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(5, 8);
 
     // engagement-icon-v23
     let div = document.querySelectorAll('div.engagement-icon-v23');

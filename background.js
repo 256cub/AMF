@@ -5,7 +5,7 @@ let opened_tab_id = 0;
 
 const config = {
     enable: 0,
-    max: 3,
+    max: 1,
 
     ig_like: false,
     ig_follow: false,
@@ -246,7 +246,7 @@ chrome.tabs.onRemoved.addListener(function (tabid, removed) {
     }
 })
 
-chrome.storage.sync.get('max', function (data) {
+chrome.storage.sync.get('max-click', function (data) {
     if ((data.max) && (data.max !== 0)) {
         config.max = data.max;
         console.log("Max From config : " + config.max);

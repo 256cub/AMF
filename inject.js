@@ -120,6 +120,23 @@ function clog(s) {
     chrome.runtime.sendMessage({action: "log", log: s});
 }
 
+function generateRandom(min = 0, max = 100) {
+
+    // find diff
+    let difference = max - min;
+
+    // generate random number
+    let rand = Math.random();
+
+    // multiply with difference
+    rand = Math.floor( rand * difference);
+
+    // add with min value
+    rand = rand + min;
+
+    return rand;
+}
+
 const _ENABLE_LIST = [
     true, true, true, true, true,
     true, true, true, true, true,
@@ -392,7 +409,7 @@ chrome.runtime.onMessage.addListener(
         if (request.action === "opened") {
             opened_tab_id = request.tabid;
             if (state === _STATE_TASK_STARTED) {
-                wait_time = 300;
+                wait_time = generateRandom(200, 300);
             }
         }
 
@@ -400,7 +417,7 @@ chrome.runtime.onMessage.addListener(
             if (opened_tab_id === request.tabid) {
                 opened_tab_id = 0;
                 state = _STATE_IDLE;
-                wait_time = 3;
+                wait_time = generateRandom(3, 5);
             }
         }
 
@@ -410,7 +427,7 @@ function removeErrorLike() {
     const div = document.querySelector("div.error_like");
     if (div) {
         div.parentNode.removeChild(div);
-        wait_time = 10;
+        wait_time = generateRandom(10, 20);
     }
 }
 
@@ -422,7 +439,7 @@ function checkReloadButton() {
 
     const btn = document.querySelector('input[name="reload"]');
     if (btn) {
-        wait_time = 30;
+        wait_time = generateRandom(20, 30);
         clog("Page Reloaded");
         btn.click();
     }
@@ -584,7 +601,7 @@ const readyStateCheckInterval = setInterval(function () {
             console.log("wait timeout, next type");
             nextActionType();
             state = _STATE_WAIT;
-            wait_time = 30;
+            wait_time = generateRandom(20, 30);
             window.location.href = CurActionUrl;
         }
 
@@ -603,7 +620,7 @@ const readyStateCheckInterval = setInterval(function () {
         console.log("unknown url, get next type");
         nextActionType();
         state = _STATE_WAIT;
-        wait_time = 30;
+        wait_time = generateRandom(20, 30);
         window.location.href = CurActionUrl;
         return;
     }
@@ -628,7 +645,7 @@ const readyStateCheckInterval = setInterval(function () {
             console.log("No Button Found !");
             nextActionType();
             state = _STATE_WAIT;
-            wait_time = 30;
+            wait_time = generateRandom(20, 30);
             window.location.href = CurActionUrl;
             return;
         }
@@ -639,17 +656,17 @@ const readyStateCheckInterval = setInterval(function () {
                 console.log("max-click " + click_count + ", next type");
                 nextActionType();
                 state = _STATE_WAIT;
-                wait_time = 30;
+                wait_time = generateRandom(20, 30);
                 window.location.href = CurActionUrl;
                 return;
             }
 
             click_count++;
             state = _STATE_TASK_STARTED;
-            wait_time = 120;	// 2 minutes
+            wait_time = generateRandom(90, 12);
             chrome.runtime.sendMessage({action: "setActType", actType: config.actionType});
         } else {
-            wait_time = 5;
+            wait_time = generateRandom(5, 10);
         }
 
         btn.click();
