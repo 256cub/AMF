@@ -22,7 +22,7 @@ function do_twitter_like() {
 function do_twitter_follow() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 3);
+    wait_time = generateRandom(1, 2);
 
     var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
     if (!div) {
