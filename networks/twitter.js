@@ -1,7 +1,7 @@
 function do_twitter_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 6);
+    wait_time = generateRandom(1, 7);
 
     var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
     if ((div) && (div.textContent === "Like")) {
@@ -47,7 +47,7 @@ function do_twitter_follow() {
 function do_twitter_retweet() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 6);
+    wait_time = generateRandom(1, 7);
 
     var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
     if ((div) && (div.textContent === "Retweet")) {
