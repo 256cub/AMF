@@ -2,7 +2,7 @@
 function do_fb_page_like(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
+	wait_time = generateRandom(1, 8);
 
 	var div = document.querySelector('div[aria-label="Remove Like"]');
 	if(div) { return; }
@@ -62,7 +62,7 @@ function do_fb_share(){
 function do_fb_follow(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
+	wait_time = generateRandom(1, 8);
 
 	const btns = document.getElementsByTagName("span");
 	if (!btns) {
@@ -93,7 +93,7 @@ function do_fb_follow(){
 function do_fb_post_like(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
+	wait_time = generateRandom(1, 8);
 
 	var div = document.querySelector('div[aria-label="Remove Like"]');
 	if(div) { return; }
