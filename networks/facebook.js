@@ -2,7 +2,7 @@
 function do_fb_page_like(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(1, 2);
+	wait_time = generateRandom(1, 4);
 
 	var div = document.querySelector('div[aria-label="Remove Like"]');
 	if(div) { return; }
@@ -37,7 +37,7 @@ function do_fb_page_like(){
 function do_fb_share(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(1, 5);
+	wait_time = generateRandom(1, 7);
 
 	const btns = document.getElementsByTagName("button");
 	if (!btns) {
@@ -62,7 +62,7 @@ function do_fb_share(){
 function do_fb_follow(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(1, 2);
+	wait_time = generateRandom(1, 4);
 
 	const btns = document.getElementsByTagName("span");
 	if (!btns) {
@@ -93,7 +93,7 @@ function do_fb_follow(){
 function do_fb_post_like(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(1, 3);
+	wait_time = generateRandom(1, 6);
 
 	var div = document.querySelector('div[aria-label="Remove Like"]');
 	if(div) { return; }
@@ -106,7 +106,7 @@ function do_fb_post_like(){
 function do_fb_post_share(){
 
 	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(1, 3);
+	wait_time = generateRandom(1, 6);
 
 	const btns = document.getElementsByTagName("span");
 	if (!btns) {
