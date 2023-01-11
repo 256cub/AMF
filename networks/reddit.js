@@ -2,7 +2,7 @@
 function do_reddit_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 5);
+    wait_time = generateRandom(1, 8);
 
     let btn = document.querySelector('button[aria-label="upvote"]');
 
@@ -29,7 +29,7 @@ function do_reddit_like() {
 function do_reddit_follow() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 2);
+    wait_time = generateRandom(1, 4);
 
     let btn = document.querySelector('button._1LHxa-yaHJwrPK8kuyv_Y4');
     if (!btn) {
