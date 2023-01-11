@@ -1,7 +1,7 @@
 function do_tiktok_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 1);
+    wait_time = generateRandom(1, 4);
 
     // engagement-icon-v23
     let div = document.querySelectorAll('div.engagement-icon-v23');
@@ -22,7 +22,7 @@ function do_tiktok_like() {
 function do_tiktok_follow() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 1;
+    wait_time = 3;
 
     const btns = document.getElementsByTagName("button");
     if (!btns) {
