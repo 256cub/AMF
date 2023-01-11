@@ -1,7 +1,7 @@
 function do_twitter_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(1, 8);
+    wait_time = generateRandom(1, 9);
 
     var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
     if ((div) && (div.textContent === "Like")) {
