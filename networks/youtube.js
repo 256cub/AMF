@@ -15,8 +15,8 @@ function do_yt_sub() {
 
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
-
-    const buttons = document.querySelectorAll('.ytd-subscribe-button-renderer');
+    //The "Subscribe" button wasn't being clicked, so I changed the CSS selector from '.ytd-subscribe-button-renderer' to '.yt-spec-button-shape-next--filled > div:nth-child(1)', and now it's working perfectly
+    const buttons = document.querySelectorAll('.yt-spec-button-shape-next--filled > div:nth-child(1)');
     if ((!buttons) || (buttons.length < 1)) {
         console.log("No Subscribe button found :()");
         return;
