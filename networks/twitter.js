@@ -19,6 +19,7 @@ function do_twitter_like() {
     return false;
 }
 
+
 function do_twitter_follow() {
 
     state = _STATE_WAIT_TO_CLOSE;
@@ -44,18 +45,20 @@ function do_twitter_follow() {
     return false;
 }
 
-function do_twitter_retweet() {
 
+function do_twitter_retweet() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    var div = document.querySelector('div[data-testid="confirmationSheetConfirm"]');
-    if ((div) && (div.textContent === "Retweet")) {
+    var div = document.querySelector('div > span > span.css-901oao.css-16my406.r-poiln3.r-bcqeeo.r-qvutc0');
+
+    if (div && div.textContent === "Repost") {
         div.click();
         return true;
+    } else {
+        console.log("invalid confirmation sheet");
+        return false
     }
-
-    return false;
 }
 
 function do_twitter_tweet() {

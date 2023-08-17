@@ -16,19 +16,20 @@ function do_yt_sub() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    const buttons = document.querySelectorAll('.ytd-subscribe-button-renderer');
-    if ((!buttons) || (buttons.length < 1)) {
-        console.log("No Subscribe button found :()");
-        return;
-    }
 
-    for (let i = 0; i < buttons.length; i++) {
-        const s = buttons[i].textContent;
-        if (s === 'Subscribe') {
-            buttons[i].click();
-            break;
+    const subscribeSpans = document.querySelectorAll('span.yt-core-attributed-string');
+
+    for (let span of subscribeSpans) {
+        if (span.textContent === 'Subscribe') {
+            const button = span.closest('button');
+            if (button) {
+                button.click();
+                return true;
+            }
         }
     }
+    console.log("No Subscribe button found :(");
+    return false;
 }
 
 let youtube_done = false;

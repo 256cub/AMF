@@ -1,20 +1,18 @@
-function do_instagram_like(){
-
+function do_instagram_like() {
 	state = _STATE_WAIT_TO_CLOSE;
 	wait_time = generateRandom(5, 8);
-	
-	var sec = document.querySelector('section._aamu');
-	if(!sec) { return; }
-	
-	var btns = sec.querySelectorAll("svg._ab6-");
-	if(!btns) { return; }
-	
-	for(var i=0; i<btns.length; i++){
-		var svgs = btns[i].querySelectorAll('svg[aria-label="Like"]');
-		if(svgs){
-			btns[i].parentNode.click();
-			break;
-		}
+
+	var likeSVG = document.querySelector('svg[aria-label="Like"]');
+	if (!likeSVG) { return false; }
+
+	var clickableDiv = likeSVG.closest('div[role="button"]');
+
+	if (clickableDiv) {
+		clickableDiv.click();
+		return true;
+	} else {
+		console.log("Clickable div not found");
+		return false;
 	}
 }
 
