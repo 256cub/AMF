@@ -1,9 +1,9 @@
 # AMF BOT
-### Automatic Bot Extension for [AddMeFast.com](https://ads.moneycoma.com/AddMeFast)
+### Automatic Bot Extension for [AddMeFast.com](https://amf.ac/?RZGV0W6M)
 
 ---
 ### Discord Server for Discussing/Support/Questions/Ideas
- - [AMF Discord Server]([https://ads.moneycoma.com/DiscordAMF](https://amf.ac/?RZGV0W6M)
+ - [AMF Discord Server](https://discord.gg/2qShbF5xmK)
 
 ---
 ### What to do if bot not working for some network:
