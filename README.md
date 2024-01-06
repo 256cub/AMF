@@ -3,7 +3,7 @@
 
 ---
 ### Discord Server for Discussing/Support/Questions/Ideas
- - [AMF Discord Server](https://ads.moneycoma.com/DiscordAMF)
+ - [AMF Discord Server]([https://ads.moneycoma.com/DiscordAMF](https://amf.ac/?RZGV0W6M)
 
 ---
 ### What to do if bot not working for some network:
