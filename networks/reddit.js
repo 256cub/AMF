@@ -4,7 +4,20 @@ function do_reddit_like() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    let btn = document.querySelector('button[aria-label="upvote"]');
+    const upvoteSelectors = [
+        'button[aria-label="upvote"]',
+        'button[data-testid="upvote"]',
+        'button[aria-label="upvote"] svg',
+        '.voteButton[data-click-label="upvote"]',
+        'button[name="upvote"]',
+        'button[data-adclicklocation="upvote"]'
+    ];
+
+    let btn = null;
+    for (const sel of upvoteSelectors) {
+        btn = document.querySelector(sel);
+        if (btn) break;
+    }
 
     if (!btn) {
         console.log("like button not found !");
@@ -31,7 +44,31 @@ function do_reddit_follow() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    let btn = document.querySelector('button._1LHxa-yaHJwrPK8kuyv_Y4');
+    const followSelectors = [
+        'button._1LHxa-yaHJwrPK8kuyv_Y4',
+        'button[data-testid="subscribe-button"]',
+        'button[aria-label="Join"]',
+        'button:contains("Join")',
+        'button.join-button',
+        'button[data-click-location="sidebar"]'
+    ];
+
+    let btn = null;
+    for (const sel of followSelectors) {
+        btn = document.querySelector(sel);
+        if (btn) break;
+    }
+    
+    if (!btn) {
+        const joinBtns = document.querySelectorAll('button');
+        for (let i = 0; i < joinBtns.length; i++) {
+            if (joinBtns[i].textContent && joinBtns[i].textContent.trim() === 'Join') {
+                btn = joinBtns[i];
+                break;
+            }
+        }
+    }
+
     if (!btn) {
         console.log("follow button not found !");
         return;

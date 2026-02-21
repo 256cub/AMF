@@ -3,9 +3,37 @@ function do_twitch_sub() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    let btn = document.querySelector('button[aria-label="Follow"]');
+    const followSelectors = [
+        'button[aria-label="Follow"]',
+        'button[aria-label="Follow"]',
+        'button[data-a-target="follow-button"]',
+        'button.follow-button',
+        'button:contains("Follow")'
+    ];
+
+    let btn = null;
+    for (const sel of followSelectors) {
+        btn = document.querySelector(sel);
+        if (btn) break;
+    }
+
+    if (!btn) {
+        const btns = document.getElementsByTagName("button");
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i].textContent && btns[i].textContent.includes("Follow")) {
+                btn = btns[i];
+                break;
+            }
+        }
+    }
+
     if (btn) {
-        btn.click();
+        const isFollowing = btn.textContent === "Following" || btn.classList.contains('following');
+        if (!isFollowing) {
+            btn.click();
+        } else {
+            console.log("Already following");
+        }
     } else {
         console.log("Follow button not found !");
     }
