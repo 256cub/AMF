@@ -16,19 +16,32 @@ function do_yt_sub() {
     state = _STATE_WAIT_TO_CLOSE;
     wait_time = generateRandom(5, 8);
 
-    const buttons = document.querySelectorAll('.ytd-subscribe-button-renderer');
-    if ((!buttons) || (buttons.length < 1)) {
-        console.log("No Subscribe button found :()");
+    const selectors = [
+        '.yt-spec-button-shape-next--filled > div:nth-child(1)',
+        '.ytd-subscribe-button-renderer',
+        'ytd-subscribe-button-renderer',
+        '#subscribe-button'
+    ];
+    
+    let btn = null;
+    for (const sel of selectors) {
+        const elements = document.querySelectorAll(sel);
+        for (let i = 0; i < elements.length; i++) {
+            const s = elements[i].textContent;
+            if (s && s.trim() === 'Subscribe') {
+                btn = elements[i];
+                break;
+            }
+        }
+        if (btn) break;
+    }
+    
+    if (!btn) {
+        console.log("No Subscribe button found");
         return;
     }
 
-    for (let i = 0; i < buttons.length; i++) {
-        const s = buttons[i].textContent;
-        if (s === 'Subscribe') {
-            buttons[i].click();
-            break;
-        }
-    }
+    btn.click();
 }
 
 let youtube_done = false;

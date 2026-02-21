@@ -1,44 +1,86 @@
 function do_tiktok_like() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
+    wait_time = generateRandom(8, 12);
 
-    // engagement-icon-v23
-    let div = document.querySelectorAll('div.engagement-icon-v23');
-    if ((!div) || (div.length < 1)) {
-        div = document.querySelectorAll('span[data-e2e="like-icon"]');
+    const likeSelectors = [
+        'div.engagement-icon-v23',
+        'span[data-e2e="like-icon"]',
+        'div[data-e2e="like-icon"]',
+        'button[aria-label="like"]',
+        '[data-e2e="like"]'
+    ];
+
+    let likeBtn = null;
+    for (const sel of likeSelectors) {
+        likeBtn = document.querySelector(sel);
+        if (likeBtn) break;
     }
 
-    if ((div) && (div.length > 0)) {
-        console.log("Clicked !");
-        //div[0].click();
-        click(div[0]);
-        return true;
+    if (!likeBtn) {
+        console.log("like button not found !");
+        return false;
     }
 
-    return false;
+    const isLiked = likeBtn.classList.contains('liked') || 
+                    likeBtn.getAttribute('data-e2e-status') === 'liked' ||
+                    likeBtn.querySelector('svg[fill]');
+
+    if (isLiked) {
+        console.log("Already liked, skipping");
+        return false;
+    }
+
+    console.log("Clicked like!");
+    click(likeBtn);
+    return true;
 }
 
 function do_tiktok_follow() {
 
     state = _STATE_WAIT_TO_CLOSE;
-    wait_time = 6;
+    wait_time = generateRandom(8, 12);
 
-    const btns = document.getElementsByTagName("button");
-    if (!btns) {
-        return false;
+    const followSelectors = [
+        'button:contains("Follow")',
+        '[data-e2e="follow"]',
+        'button[data-e2e="follow-button"]',
+        'div[data-e2e="follow"]'
+    ];
+
+    let btn = null;
+    for (const sel of followSelectors) {
+        btn = document.querySelector(sel);
+        if (btn) break;
     }
 
-    if (btns.length < 1) {
-        return false;
-    }
+    if (!btn) {
+        const btns = document.getElementsByTagName("button");
+        if (!btns || btns.length < 1) {
+            return false;
+        }
 
-    for (let i = 0; i < btns.length; i++) {
-        if (btns[i].textContent === "Follow") {
-            click(btns[i]);
-            return true;
+        for (let i = 0; i < btns.length; i++) {
+            if (btns[i].textContent === "Follow") {
+                btn = btns[i];
+                break;
+            }
         }
     }
+
+    if (!btn) {
+        console.log("follow button not found !");
+        return false;
+    }
+
+    const isFollowing = btn.textContent === "Following" || btn.classList.contains('following');
+    if (isFollowing) {
+        console.log("Already following, skipping");
+        return false;
+    }
+
+    click(btn);
+    return true;
 }
 
 let tiktok_done = false;

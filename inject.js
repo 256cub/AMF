@@ -663,7 +663,7 @@ const readyStateCheckInterval = setInterval(function () {
 
             click_count++;
             state = _STATE_TASK_STARTED;
-            wait_time = generateRandom(90, 12);
+            wait_time = generateRandom(12, 90);
             chrome.runtime.sendMessage({action: "setActType", actType: config.actionType});
         } else {
             wait_time = generateRandom(5, 10);
