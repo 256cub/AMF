@@ -1,60 +1,20 @@
-function do_sc_like(){
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
-	
-	var div = document.querySelector('button.sc-button-like');
-	if(!div) { 
-		console.log("like button not found !");
-		return; 
-	}
-	
-	div.click();
-	
-}
+    // The page's main control is the first visible one; track lists further down repeat the class.
+    const isOn = (el) => !!el && el.classList.contains('sc-button-selected');
 
-function do_sc_follow(){
+    function toggle(selector) {
+        return () => d.clickOnce({
+            target: () => {
+                const el = d.first(selector);
+                return el && !isOn(el) ? el : null;
+            },
+            already: () => isOn(d.first(selector)),
+        });
+    }
 
-	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
-
-	var div = document.querySelector('button.sc-button-follow');
-	if(!div) { 
-		console.log("follow button not found !");
-		return; 
-	}
-	
-	div.click();
-}
-
-var soundcloud_done = false;
-
-function do_soundcloud(){
-	
-	// wait for 5 seconds
-	if(tick_count < 2) { return; }
-	
-	if(tick_count > _TIMEOUT_IN_SECS) {
-		// timeout
-		window.close();
-	}
-
-	if(soundcloud_done) { return; }
-	soundcloud_done = true;
-	
-	console.log("soundcloud_done");
-	console.log("config.actionType = "+config.actionType);
-	
-	if (config.actionType === _ACTION_TYPE_SC_FOLLOW) {
-		
-		console.log("do_sc_follow");
-		do_sc_follow();
-		return;
-	}
-	
-	if (config.actionType === _ACTION_TYPE_SC_LIKE) {
-		console.log("do_sc_like");
-		do_sc_like();
-		return;
-	}
-}
+    AMF.handlers.sc_like = toggle('button.sc-button-like');
+    AMF.handlers.sc_follow = toggle('button.sc-button-follow');
+})(globalThis.AMF);

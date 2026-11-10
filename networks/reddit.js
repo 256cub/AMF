@@ -1,114 +1,35 @@
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-function do_reddit_like() {
+    // New Reddit keeps both buttons inside shadow roots; d.first() looks through them.
+    const JOIN = ['shreddit-join-button button', 'button.join-btn', 'button[data-post-click-location="join"]', 'button[data-testid="subscribe-button"]'];
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
+    AMF.handlers.reddit_follow = () => d.clickOnce({
+        target: () => d.first(JOIN, (el) => /^join$/i.test(d.text(el))) || d.byText('button', /^join$/i),
+        already: () => d.first(JOIN, (el) => /^(joined|leave)$/i.test(d.text(el))),
+    });
 
-    const upvoteSelectors = [
-        'button[aria-label="upvote"]',
-        'button[data-testid="upvote"]',
-        'button[aria-label="upvote"] svg',
-        '.voteButton[data-click-label="upvote"]',
-        'button[name="upvote"]',
-        'button[data-adclicklocation="upvote"]'
-    ];
-
-    let btn = null;
-    for (const sel of upvoteSelectors) {
-        btn = document.querySelector(sel);
-        if (btn) break;
-    }
-
-    if (!btn) {
-        console.log("like button not found !");
-        return;
-    }
-
-    btn.click();
-
-    if (counter['reddit_like']) {
-        counter['reddit_like'] = counter['reddit_like'] + 1;
-    } else {
-        counter['reddit_like'] = {
-            total: 0,
-            good: 0,
-            bad: 0,
+    function postUpvote() {
+        const post = document.querySelector('shreddit-post');
+        if (post && post.shadowRoot) {
+            const inPost = post.shadowRoot.querySelector('button[upvote]');
+            if (inPost) return inPost;
         }
+        // Fallbacks: any upvote control on the page, then old.reddit.com's arrow.
+        return d.first(['button[upvote]', 'button[aria-label="upvote" i]', '.thing.link .arrow.up, .thing.link .arrow.upmod']);
     }
 
-    console.log(counter)
-}
+    const isUpvoted = (el) => d.pressed(el) || el.classList.contains('upmod');
 
-function do_reddit_follow() {
-
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
-
-    const followSelectors = [
-        'button._1LHxa-yaHJwrPK8kuyv_Y4',
-        'button[data-testid="subscribe-button"]',
-        'button[aria-label="Join"]',
-        'button:contains("Join")',
-        'button.join-button',
-        'button[data-click-location="sidebar"]'
-    ];
-
-    let btn = null;
-    for (const sel of followSelectors) {
-        btn = document.querySelector(sel);
-        if (btn) break;
-    }
-    
-    if (!btn) {
-        const joinBtns = document.querySelectorAll('button');
-        for (let i = 0; i < joinBtns.length; i++) {
-            if (joinBtns[i].textContent && joinBtns[i].textContent.trim() === 'Join') {
-                btn = joinBtns[i];
-                break;
-            }
-        }
-    }
-
-    if (!btn) {
-        console.log("follow button not found !");
-        return;
-    }
-
-    btn.click();
-}
-
-let reddit_done = false;
-
-function do_reddit() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (reddit_done) {
-        return;
-    }
-    reddit_done = true;
-
-    console.log("reddit_done");
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_REDDIT_FOLLOW) {
-
-        console.log("do_reddit_follow");
-        do_reddit_follow();
-        return;
-    }
-
-    if (config.actionType === _ACTION_TYPE_REDDIT_LIKE) {
-        console.log("do_reddit_like");
-        do_reddit_like();
-        return;
-    }
-}
+    AMF.handlers.reddit_like = () => d.clickOnce({
+        target: () => {
+            const el = postUpvote();
+            return el && !isUpvoted(el) ? el : null;
+        },
+        already: () => {
+            const el = postUpvote();
+            return el && isUpvoted(el);
+        },
+    });
+})(globalThis.AMF);

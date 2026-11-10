@@ -1,44 +1,25 @@
-function do_coinmarketcap_sub() {
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
+    const STAR = ['button[data-test="watchlist-star"]', '[data-test="watchlist-button"] button', 'button .icon-Star'];
 
-    const buttons = document.querySelectorAll('.icon-Star');
-    if ((!buttons) || (buttons.length < 1)) {
-        console.log("No Favorite button found :()");
-        return;
+    // The star is a toggle with no pressed attribute, so "already added" is read from its icon.
+    function isWatched(el) {
+        if (d.pressed(el)) return true;
+        const use = el.querySelector('use');
+        const icon = use ? (use.getAttribute('href') || use.getAttribute('xlink:href') || '') : '';
+        return /filled|solid|active/i.test(icon) || /(^|[\s_-])(active|selected|watched)([\s_-]|$)/i.test(el.className);
     }
 
-    buttons[0].click();
-}
-
-let coinmarketcap_watch = false;
-
-function do_coinmarketcap() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (coinmarketcap_watch) {
-        return;
-    }
-    coinmarketcap_watch = true;
-
-    console.log("coinmarketcap_watch");
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_COINMARKETCAT_WATCH) {
-
-        console.log("do_coinmarketcap_sub");
-        do_coinmarketcap_sub();
-        return;
-    }
-
-}
+    AMF.handlers.coinmarketcap_watch = () => d.clickOnce({
+        target: () => {
+            const el = d.first(STAR);
+            return el && !isWatched(el) ? el : null;
+        },
+        already: () => {
+            const el = d.first(STAR);
+            return el && isWatched(el);
+        },
+    });
+})(globalThis.AMF);

@@ -1,68 +1,14 @@
-function do_ok_like() {
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
+    // Experimental: selectors come from the public group page, not from a signed-in session.
+    const JOIN = /^(join|join group|subscribe|вступить|подписаться|присоединиться)$/i;
+    const MEMBER = /^(member|you are a member|subscribed|leave group|в группе|вы в группе|участник|вы подписаны)$/i;
+    const SCOPE = 'button[data-uikit="Button"], ui-groups-main-menu-button button, button, a.button-pro';
 
-    let btn = document.querySelector('button[aria-label^="like"]');
-    if (btn) {
-        btn.click();
-    } else {
-        console.log("like button not found !");
-    }
-}
-
-function do_ok_sub() {
-
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
-
-    const buttons = document.querySelectorAll('.ytd-subscribe-button-renderer');
-    if ((!buttons) || (buttons.length < 1)) {
-        console.log("No Subscribe button found :()");
-        return;
-    }
-
-    for (let i = 0; i < buttons.length; i++) {
-        const s = buttons[i].textContent;
-        if (s === 'Subscribe') {
-            buttons[i].click();
-            break;
-        }
-    }
-}
-
-let ok_done = false;
-
-function do_ok() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (ok_done) {
-        return;
-    }
-    ok_done = true;
-
-    console.log("ok_done");
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_YT_SUB) {
-
-        console.log("do_ok_sub");
-        do_ok_sub();
-        return;
-    }
-
-    if (config.actionType === _ACTION_TYPE_YT_LIKE) {
-        console.log("do_ok_like");
-        do_ok_like();
-        return;
-    }
-}
+    AMF.handlers.ok_follow = () => d.clickOnce({
+        target: () => d.byText(SCOPE, JOIN),
+        already: () => !d.byText(SCOPE, JOIN) && d.byText(SCOPE, MEMBER),
+    });
+})(globalThis.AMF);

@@ -1,0 +1,15 @@
+{
+  "name": "amf-bot",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Chrome extension that automates the free-points tasks on AddMeFast.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/unit/*.test.js",
+    "test:e2e": "node tests/e2e/run.js",
+    "test:live": "node tests/e2e/live-selectors.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.50.0"
+  }
+}

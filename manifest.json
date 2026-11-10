@@ -1,52 +1,87 @@
 {
-  "name": "AMF",
-  "background": {
-    "scripts": [
-      "background.js"
-    ]
-  },
-  "version": "1.0.2",
-  "manifest_version": 2,
-  "description": "Automatic Bot",
-  "homepage_url": "https://www.google.com/",
+  "manifest_version": 3,
+  "name": "AMF Bot",
+  "version": "2.0.0",
+  "description": "Automates the free-points tasks on AddMeFast in one dedicated tab.",
+  "homepage_url": "https://github.com/256cub/AMF",
+  "minimum_chrome_version": "110",
   "icons": {
     "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "default_locale": "en",
-  "browser_action": {
-    "default_icon": "icons/icon32.png",
-    "default_title": "AMF",
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    },
+    "default_title": "AMF Bot",
     "default_popup": "popup/popup.html"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "permissions": [
-    "background",
-    "storage"
+    "storage",
+    "alarms",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "*://addmefast.com/*",
+    "*://*.addmefast.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "*://addmefast.com/*",
+        "*://*.addmefast.com/*"
       ],
       "js": [
-        "jquery.min.js",
-        "inject.js",
-        "networks/tiktok.js",
-        "networks/instagram.js",
-        "networks/twitter.js",
-        "networks/facebook.js",
+        "shared/actions.js",
+        "content/controller.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://*.youtube.com/*",
+        "*://*.facebook.com/*",
+        "*://*.instagram.com/*",
+        "*://*.tiktok.com/*",
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.reddit.com/*",
+        "*://*.soundcloud.com/*",
+        "*://*.twitch.tv/*",
+        "*://*.coinmarketcap.com/*",
+        "*://*.likee.video/*",
+        "*://*.reverbnation.com/*",
+        "*://*.pinterest.com/*",
+        "*://*.vk.com/*",
+        "*://*.vk.ru/*",
+        "*://*.ok.ru/*"
+      ],
+      "js": [
+        "shared/actions.js",
+        "content/dom.js",
         "networks/youtube.js",
-        "networks/soundcloud.js",
+        "networks/facebook.js",
+        "networks/instagram.js",
+        "networks/tiktok.js",
+        "networks/twitter.js",
         "networks/reddit.js",
-        "networks/coinmarketcap.js",
-        "networks/telegram.js",
+        "networks/soundcloud.js",
         "networks/twitch.js",
-        "networks/website.js",
+        "networks/coinmarketcap.js",
         "networks/likee.js",
+        "networks/reverbnation.js",
+        "networks/pinterest.js",
+        "networks/vk.js",
         "networks/ok.js",
-        "networks/reverbnation.js"
-      ]
+        "content/task.js"
+      ],
+      "run_at": "document_idle"
     }
   ]
 }

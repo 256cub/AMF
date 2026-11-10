@@ -1,306 +1,67 @@
-<html>
-
+<!doctype html>
+<html lang="en">
 <head>
-    <script src="../jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <link href="theme.css" rel="stylesheet">
-    <script src="bwcore.js"></script>
-    <style>
-        body {
-            width: 770px;
-            min-height: 480px;
-        }
-
-        h4 span {
-            font-size: 1rem;
-            color: #0b2e13;
-        }
-
-        h4 span a {
-            font-size: 2rem;
-            color: #ffffff;
-        }
-    </style>
+    <meta charset="utf-8">
+    <title>AMF Bot</title>
+    <link rel="stylesheet" href="popup.css">
 </head>
-
 <body>
 
-<h4 class="bg-success m-2 p-2"><strong>AMF BOT v1.0.3</strong>
-    <span>
-        Automatic Bot Extension for
-        <a href="https://amf.ac/?RZGV0W6M" target="_blank"> AddMeFast.com </a>
-    </span>
-</h4>
-
-
-<div class="container">
-
-    <div class="row row-cols-6 row-cols-md-6 g-1 align-items-center ml-1">
-
-        <div class="card border-primary m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://coinmarketcap.com" target="_blank">CoinMarketCap</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="coinmarketcap-watch" value="1" checked>
-                    <label class="form-check-label" for="coinmarketcap-watch">Watchlist</label>
-                </div>
-            </div>
+<header class="top">
+    <div class="brand">
+        <img src="../icons/icon48.png" alt="" width="28" height="28">
+        <div>
+            <h1>AMF Bot <span id="version"></span></h1>
+            <a href="https://amf.ac/?RZGV0W6M" target="_blank" rel="noopener">AddMeFast.com</a>
         </div>
-
-        <div class="card border-secondary m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://web.telegram.org" target="_blank">Telegram</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="telegram-follow" value="0" disabled>
-                    <label class="form-check-label" for="telegram-follow">Channel</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-success m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://www.twitch.tv" target="_blank">Twitch</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitch-follow" value="1" checked>
-                    <label class="form-check-label" for="twitch-follow">Follow</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-danger m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="#" target="_blank">Website</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="website-view" value="1" disabled>
-                    <label class="form-check-label" for="website-view">Hits</label>
-                </div>
-            </div>
-        </div>
-
     </div>
+    <button id="toggle" class="primary" type="button">Start</button>
+</header>
 
-    <div class="row row-cols-6 row-cols-md-6 g-1 align-items-center ml-1">
+<section id="status" class="status" role="status" aria-live="polite">
+    <span class="dot"></span>
+    <span id="status-text">Idle</span>
+</section>
 
-        <div class="card border-warning m-1 align-items-center" style="width: 10rem; height: 8rem;">
-            <div class="card-header"><a href="https://likee.video" target="_blank">Likee</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="likee-follow" value="1" checked>
-                    <label class="form-check-label" for="likee-follow">Follow</label>
-                </div>
-            </div>
-        </div>
+<section class="counters" aria-label="This session">
+    <div><strong id="c-done">0</strong><span>done</span></div>
+    <div><strong id="c-already">0</strong><span>already done</span></div>
+    <div><strong id="c-failed">0</strong><span>failed</span></div>
+    <div><strong id="c-time">0:00</strong><span>running</span></div>
+</section>
 
-        <div class="card border-info m-1 align-items-center" style="width: 10rem; height: 8rem;">
-            <div class="card-header"><a href="https://ok.ru" target="_blank">OK.ru</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="ok-follow" value="1" disabled>
-                    <label class="form-check-label" for="ok-follow">Group Join</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-dark m-1 align-items-center" style="width: 10rem; height: 8rem;">
-            <div class="card-header"><a href="https://www.reverbnation.com" target="_blank">ReverbNation</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="reverbnation-follow" value="1" checked>
-                    <label class="form-check-label" for="reverbnation-follow">Fan</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-primary m-1 align-items-center" style="width: 10rem; height: 8rem;">
-            <div class="card-header"><a href="https://www.reddit.com" target="_blank">Reddit</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="reddit-like" value="1" checked>
-                    <label class="form-check-label" for="reddit-like">Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="reddit-follow" value="1" checked>
-                    <label class="form-check-label" for="reddit-follow">Follow</label>
-                </div>
-            </div>
-        </div>
-
+<section class="options">
+    <label>Max clicks per type
+        <input id="max" type="number" min="1" max="500" step="1">
+    </label>
+    <label title="Stop automatically after this many tasks. 0 means no limit.">Stop after (tasks)
+        <input id="session-limit" type="number" min="0" max="100000" step="1">
+    </label>
+    <div class="bulk">
+        <button id="all" type="button">All</button>
+        <button id="none" type="button">None</button>
     </div>
+</section>
 
-    <div class="row row-cols-6 row-cols-md-6 g-1 align-items-center ml-1">
+<main id="networks" class="networks"></main>
 
-        <div class="card border-secondary m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://www.instagram.com" target="_blank">Instagram</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="instagram-like" value="1" checked>
-                    <label class="form-check-label" for="instagram-like">Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="instagram-follow" value="1" checked>
-                    <label class="form-check-label" for="instagram-follow">Follow</label>
-                </div>
-            </div>
-        </div>
+<details id="log-box">
+    <summary>Activity</summary>
+    <ol id="log" class="log"></ol>
+</details>
 
-        <div class="card border-success m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://www.tiktok.com" target="_blank">TikTok</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="tiktok-like" value="1" checked>
-                    <label class="form-check-label" for="tiktok-like">Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="tiktok-follow" value="1" checked>
-                    <label class="form-check-label" for="tiktok-follow">Follow</label>
-                </div>
-            </div>
-        </div>
+<details id="stats-box">
+    <summary>Totals <button id="reset-stats" type="button" class="link">reset</button></summary>
+    <table id="stats" class="stats"></table>
+</details>
 
-        <div class="card border-danger m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="pinterest-save" value="1" disabled>
-                    <label class="form-check-label" for="pinterest-save">Save</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="pinterest-follow" value="1" disabled>
-                    <label class="form-check-label" for="pinterest-follow">Follow</label>
-                </div>
-            </div>
-        </div>
+<footer>
+    <a href="https://github.com/256cub/AMF" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/256cub/AMF/issues" target="_blank" rel="noopener">Report a problem</a>
+    <a href="https://discord.gg/2qShbF5xmK" target="_blank" rel="noopener">Discord</a>
+</footer>
 
-        <div class="card border-warning m-1 align-items-center" style="width: 10rem;">
-            <div class="card-header"><a href="https://vk.com" target="_blank">Vkontakte</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="vkontakte-group" value="1" disabled>
-                    <label class="form-check-label" for="vkontakte-group">Group</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="vkontakte-page" value="1" disabled>
-                    <label class="form-check-label" for="vkontakte-page">Page</label>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row row-cols-6 row-cols-md-6 g-1 align-items-center ml-1">
-
-        <div class="card border-primary m-1 align-items-center" style="width: 10rem; height: 13rem;">
-            <div class="card-header"><a href="https://www.facebook.com" target="_blank">Facebook</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-page-like" value="1">
-                    <label class="form-check-label" for="facebook-page-like">Page Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-share" value="1">
-                    <label class="form-check-label" for="facebook-share">Share</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-follow" value="1">
-                    <label class="form-check-label" for="facebook-follow">Follow</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-post-like" value="1">
-                    <label class="form-check-label" for="facebook-post-like">Post Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="facebook-post-share" value="1">
-                    <label class="form-check-label" for="facebook-post-share">Post Share</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-secondary m-1 align-items-center" style="width: 10rem; height: 13rem;">
-            <div class="card-header"><a href="https://twitter.com" target="_blank">Twitter</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitter-follow" value="1">
-                    <label class="form-check-label" for="twitter-follow">Follow</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitter-tweet" value="1">
-                    <label class="form-check-label" for="twitter-tweet">Tweet</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitter-retweet" value="1">
-                    <label class="form-check-label" for="twitter-retweet">Retweet</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="twitter-like" value="1">
-                    <label class="form-check-label" for="twitter-like">Like</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-success m-1 align-items-center" style="width: 10rem; height: 13rem;">
-            <div class="card-header"><a href="https://www.youtube.com" target="_blank">YouTube</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="youtube-subscribe" value="1">
-                    <label class="form-check-label" for="youtube-subscribe">Subscribe</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="youtube-like" value="1">
-                    <label class="form-check-label" for="youtube-like">Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="youtube-view" value="1" disabled>
-                    <label class="form-check-label" for="youtube-view">View</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-danger m-1 align-items-center" style="width: 10rem; height: 13rem;">
-            <div class="card-header"><a href="https://soundcloud.com" target="_blank">SoundCloud</a></div>
-            <div class="card-body">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="sc-like" value="1">
-                    <label class="form-check-label" for="sc-like">Like</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="sc-follow" value="1">
-                    <label class="form-check-label" for="sc-follow">Follow</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="soundcloud-play" value="1" disabled>
-                    <label class="form-check-label" for="soundcloud-play">Play</label>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="row m-1">
-
-        <div class="col-6">
-            <input class="form-control" type="number" id="max-click" value="1">
-            <label for="max-click">Max Click Per Type:</label>
-        </div>
-        <div class="col-6">
-            <btn class="btn btn-success w-100" id="start">Start</btn>
-        </div>
-
-<!--        <div class="col">-->
-<!--            <btn class="btn btn-dark btn-sm disabled w-100" id="count">0</btn>-->
-<!--        </div>-->
-
-    </div>
-
-<!--    <hr>-->
-
-    <div class="m-2 p-1 text-center">
-        <strong style="color: #1c7430;"> v1.0.3 </strong>
-        <span> Latest Updates: </span>
-        <strong> 08 November 2022 </strong>
-    </div>
-
-</div>
-
+<script src="../shared/actions.js"></script>
+<script src="popup.js"></script>
 </body>
-
 </html>
