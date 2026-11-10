@@ -1,117 +1,37 @@
-function do_tiktok_like() {
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(8, 12);
+    const FOLLOW = ['[data-e2e="follow-button"]', '[data-e2e="browse-follow"]', '[data-e2e="feed-follow"]'];
+    const isFollowing = (el) => /^(following|friends|requested|message)$/i.test(d.text(el)) || /^(following|unfollow)/i.test(d.label(el));
 
-    const likeSelectors = [
-        'div.engagement-icon-v23',
-        'span[data-e2e="like-icon"]',
-        'div[data-e2e="like-icon"]',
-        'button[aria-label="like"]',
-        '[data-e2e="like"]'
-    ];
+    AMF.handlers.tiktok_follow = () => d.clickOnce({
+        // The first follow button belongs to the profile/video owner; later ones are suggestions.
+        target: () => {
+            const el = d.first(FOLLOW) || d.byText('button', /^follow$/i);
+            return el && !isFollowing(el) ? el : null;
+        },
+        already: () => {
+            const el = d.first(FOLLOW);
+            return el && isFollowing(el);
+        },
+    });
 
-    let likeBtn = null;
-    for (const sel of likeSelectors) {
-        likeBtn = document.querySelector(sel);
-        if (likeBtn) break;
+    const LIKE_ICON = ['[data-e2e="like-icon"]', '[data-e2e="browse-like-icon"]', '[data-e2e="video-like-icon"]'];
+
+    function likeButton() {
+        const icon = d.first(LIKE_ICON);
+        if (icon) return icon.closest('button') || icon;
+        return d.first('button[aria-label*="like" i][aria-pressed]');
     }
 
-    if (!likeBtn) {
-        console.log("like button not found !");
-        return false;
-    }
-
-    const isLiked = likeBtn.classList.contains('liked') || 
-                    likeBtn.getAttribute('data-e2e-status') === 'liked' ||
-                    likeBtn.querySelector('svg[fill]');
-
-    if (isLiked) {
-        console.log("Already liked, skipping");
-        return false;
-    }
-
-    console.log("Clicked like!");
-    click(likeBtn);
-    return true;
-}
-
-function do_tiktok_follow() {
-
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(8, 12);
-
-    const followSelectors = [
-        'button:contains("Follow")',
-        '[data-e2e="follow"]',
-        'button[data-e2e="follow-button"]',
-        'div[data-e2e="follow"]'
-    ];
-
-    let btn = null;
-    for (const sel of followSelectors) {
-        btn = document.querySelector(sel);
-        if (btn) break;
-    }
-
-    if (!btn) {
-        const btns = document.getElementsByTagName("button");
-        if (!btns || btns.length < 1) {
-            return false;
-        }
-
-        for (let i = 0; i < btns.length; i++) {
-            if (btns[i].textContent === "Follow") {
-                btn = btns[i];
-                break;
-            }
-        }
-    }
-
-    if (!btn) {
-        console.log("follow button not found !");
-        return false;
-    }
-
-    const isFollowing = btn.textContent === "Following" || btn.classList.contains('following');
-    if (isFollowing) {
-        console.log("Already following, skipping");
-        return false;
-    }
-
-    click(btn);
-    return true;
-}
-
-let tiktok_done = false;
-
-function do_tiktok() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (tiktok_done) {
-        return;
-    }
-
-    tiktok_done = true;
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_TIKTOK_LIKE) {
-
-        do_tiktok_like();
-        return;
-    }
-
-    if (config.actionType === _ACTION_TYPE_TIKTOK_FOLLOW) {
-        do_tiktok_follow();
-        return;
-    }
-}
+    // Clicking a liked video removes the like, so the pressed state is checked before every click.
+    AMF.handlers.tiktok_like = () => d.clickOnce({
+        target: () => {
+            const el = likeButton();
+            return el && !d.pressed(el) ? el : null;
+        },
+        already: () => d.pressed(likeButton()),
+        settle: 2500,
+    });
+})(globalThis.AMF);

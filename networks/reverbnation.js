@@ -1,49 +1,11 @@
-function do_reverbnation_sub() {
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
-
-    const buttons = document.querySelectorAll('.button--add--profile');
-    if ((!buttons) || (buttons.length < 1)) {
-        console.log("No Become a Fan button found :()");
-        return;
-    }
-
-    for (let i = 0; i < buttons.length; i++) {
-        const s = buttons[i].textContent;
-        if (s === ' Become a Fan') {
-            buttons[i].click();
-            break;
-        }
-    }
-}
-
-let reverbnation_done = false;
-
-function do_reverbnation() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (reverbnation_done) {
-        return;
-    }
-    reverbnation_done = true;
-
-    console.log("reverbnation_done");
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_REVERBNATION_FOLLOW) {
-
-        console.log("do_reverbnation_sub");
-        do_reverbnation_sub();
-        return;
-    }
-}
+    // Both the "add" and the "remove" link are always in the page; only one of them is visible.
+    AMF.handlers.reverbnation_follow = () => d.clickOnce({
+        target: () => d.first(['a.button--add--profile[data-fan-action="add"]', '[data-fan-action="add"]'])
+            || d.byText('a, button', /^become a fan$/i),
+        already: () => d.first(['a.button--added--profile', '[data-fan-action="remove"]']),
+    });
+})(globalThis.AMF);

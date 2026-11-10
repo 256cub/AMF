@@ -1,80 +1,28 @@
-function do_yt_like() {
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
+    const SUB_SCOPE = 'ytd-subscribe-button-renderer button, yt-subscribe-button-view-model button, #subscribe-button button';
 
-    let btn = document.querySelector('button[aria-label^="like"]');
-    if (btn) {
-        btn.click();
-    } else {
-        console.log("like button not found !");
-    }
-}
+    // The filled button is the call to action; once subscribed YouTube swaps it for a tonal one.
+    const isSubscribeCta = (el) => /^subscribe(?!d)/i.test(d.label(el) || d.text(el)) || /Filled|--filled/.test(el.className);
+    const isSubscribed = (el) => /^(subscribed|unsubscribe)/i.test(d.text(el) || d.label(el));
 
-function do_yt_sub() {
+    AMF.handlers.yt_sub = () => d.clickOnce({
+        target: () => d.first([SUB_SCOPE, 'button[aria-label^="Subscribe" i]'], (el) => isSubscribeCta(el) && !isSubscribed(el)),
+        already: () => !d.first([SUB_SCOPE, 'button[aria-label^="Subscribe" i]'], (el) => isSubscribeCta(el) && !isSubscribed(el))
+            && d.first([SUB_SCOPE, 'button[aria-label^="Unsubscribe" i]'], isSubscribed),
+    });
 
-    state = _STATE_WAIT_TO_CLOSE;
-    wait_time = generateRandom(5, 8);
-
-    const selectors = [
-        '.yt-spec-button-shape-next--filled > div:nth-child(1)',
-        '.ytd-subscribe-button-renderer',
-        'ytd-subscribe-button-renderer',
-        '#subscribe-button'
+    const LIKE = [
+        'like-button-view-model button[aria-pressed]',
+        '#segmented-like-button button[aria-pressed]',
+        'ytd-menu-renderer ytd-toggle-button-renderer button[aria-pressed]',
+        '#like-button button[aria-pressed]',
     ];
-    
-    let btn = null;
-    for (const sel of selectors) {
-        const elements = document.querySelectorAll(sel);
-        for (let i = 0; i < elements.length; i++) {
-            const s = elements[i].textContent;
-            if (s && s.trim() === 'Subscribe') {
-                btn = elements[i];
-                break;
-            }
-        }
-        if (btn) break;
-    }
-    
-    if (!btn) {
-        console.log("No Subscribe button found");
-        return;
-    }
 
-    btn.click();
-}
-
-let youtube_done = false;
-
-function do_youtube() {
-
-    // wait for 5 seconds
-    if (tick_count < 2) {
-        return;
-    }
-
-    if (tick_count > _TIMEOUT_IN_SECS) {
-        // timeout
-        window.close();
-    }
-
-    if (youtube_done) {
-        return;
-    }
-    youtube_done = true;
-
-    console.log("youtube_done");
-    console.log("config.actionType = " + config.actionType);
-
-    if (config.actionType === _ACTION_TYPE_YT_SUB) {
-        console.log("do_yt_sub");
-        do_yt_sub();
-        return;
-    }
-
-    if (config.actionType === _ACTION_TYPE_YT_LIKE) {
-        console.log("do_yt_like");
-        do_yt_like();
-        return;
-    }
-}
+    AMF.handlers.yt_like = () => d.clickOnce({
+        target: () => d.first(LIKE, (el) => !d.pressed(el)),
+        already: () => d.pressed(d.first(LIKE)),
+    });
+})(globalThis.AMF);

@@ -1,70 +1,23 @@
-function do_instagram_like(){
+(function (AMF) {
+    'use strict';
+    const d = AMF.dom;
 
-	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
-	
-	var sec = document.querySelector('section._aamu');
-	if(!sec) { return; }
-	
-	var btns = sec.querySelectorAll("svg._ab6-");
-	if(!btns) { return; }
-	
-	for(var i=0; i<btns.length; i++){
-		var svgs = btns[i].querySelectorAll('svg[aria-label="Like"]');
-		if(svgs){
-			btns[i].parentNode.click();
-			break;
-		}
-	}
-}
+    const BUTTONS = 'header button, header [role="button"], main button, main [role="button"]';
 
-function do_instagram_follow(){
+    AMF.handlers.ig_follow = () => d.clickOnce({
+        target: () => d.first(BUTTONS, (el) => /^follow( back)?$/i.test(d.text(el))),
+        already: () => d.first(BUTTONS, (el) => /^(following|requested)$/i.test(d.text(el))),
+    });
 
-	state = _STATE_WAIT_TO_CLOSE;
-	wait_time = generateRandom(5, 8);
+    // The post's own heart is the 24px icon; the small ones belong to comments.
+    function heart(name) {
+        const icon = d.first('svg[aria-label="' + name + '"]', (el) => Number(el.getAttribute('height')) >= 20)
+            || d.first('svg[aria-label="' + name + '"]');
+        return icon ? (icon.closest('[role="button"], button') || icon.parentElement) : null;
+    }
 
-	var btns = document.querySelectorAll("button");
-	if(!btns) { return false; }
-	if(btns.length < 1) { return false; }
-
-	for(var i=0; i<btns.length; i++){
-		if(btns[i].textContent == "Follow") {
-
-			btns[i].click();
-			console.log("Followed !");
-			break;
-		}
-	}	
-}
-
-var instagram_done = false;
-
-function do_instagram(){
-	
-	// wait for 5 seconds
-	if(tick_count < 2) { return; }
-	
-	if(tick_count > _TIMEOUT_IN_SECS) {
-		// timeout
-		window.close();
-	}
-
-	if(instagram_done) { return; }
-	instagram_done = true;
-	
-	console.log("do_instagram");
-	console.log("config.actionType = "+config.actionType);
-	
-	if (config.actionType === _ACTION_TYPE_INSTAGRAM_LIKE) {
-		
-		console.log("do_instagram_like");
-		do_instagram_like();
-		return;
-	}
-	
-	if (config.actionType === _ACTION_TYPE_INSTAGRAM_FOLLOW) {
-		console.log("do_instagram_follow");
-		do_instagram_follow();
-		return;
-	}
-}
+    AMF.handlers.ig_like = () => d.clickOnce({
+        target: () => heart('Like'),
+        already: () => !heart('Like') && heart('Unlike'),
+    });
+})(globalThis.AMF);
